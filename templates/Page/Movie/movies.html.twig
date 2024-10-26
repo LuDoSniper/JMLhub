@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/REPLACEME.html.twig' %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date de parution</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.description }}</td>
+                    <td>{{ movie.releaseDate | date }}</td>
+                    <td>{{ movie.rating }}</td>
+                </tr>
+            {% else %}
+                <span>Aucunes données</span>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_movie_create') }}">Créer</a>
+{% endblock %}
+

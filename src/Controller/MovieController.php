@@ -16,6 +16,16 @@ class MovieController extends AbstractController
         public EntityManagerInterface $entityManager
     ){}
 
+    #[Route('/movies', 'app_movies')]
+    public function movies(): Response
+    {
+        $movies = $this->entityManager->getRepository(Movie::class)->findAll();
+
+        return $this->render('Page/Movie/movies.html.twig', [
+            'movies' => $movies
+        ]);
+    }
+
     #[Route('/movie/create', 'app_movie_create')]
     public function create(
         Request $request
@@ -29,7 +39,7 @@ class MovieController extends AbstractController
             $this->entityManager->persist($movie);
             $this->entityManager->flush();
 
-            return new Response('redirect to home or movies listing');
+            return $this->redirectToRoute('app_movies');
         }
 
         return $this->render('Page/Movie/create.html.twig', [
