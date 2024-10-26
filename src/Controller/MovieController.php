@@ -46,4 +46,25 @@ class MovieController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/movie/update/{id}', 'app_movie_update')]
+    public function update(
+        int $id,
+        Request $request
+    ): Response
+    {
+        $movie = $this->entityManager->getRepository(Movie::class)->findOneBy(['id' => $id]);
+        $form = $this->createForm(MovieType::class, $movie);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_movies');
+        }
+
+        return $this->render('Page/Movie/update.html.twig', [
+            'form' => $form
+        ]);
+    }
 }
