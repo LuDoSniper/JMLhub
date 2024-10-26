@@ -10,6 +10,7 @@
                 <th>Description</th>
                 <th>Date de parution</th>
                 <th>Note</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@
                     <td>{{ movie.description }}</td>
                     <td>{{ movie.releaseDate | date }}</td>
                     <td>{{ movie.rating }}</td>
+                    {% include 'Widget/Movie/actions.html.twig' with {'movie': movie} %}
                 </tr>
             {% else %}
                 <span>Aucunes données</span>
