@@ -1,0 +1,16 @@
+
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block body %}
+
+    <h1>Connectez-vous</h1>
+
+    {{ form_start(form, { 'action': path('app_login') }) }}
+    {{ form_row(form._username) }}
+    {{ form_row(form._password) }}
+    {{ form_row(form.login) }}
+    {{ form_end(form) }}
+
+{% endblock body %}
