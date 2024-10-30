@@ -8,9 +8,10 @@
     <h1>Connectez-vous</h1>
 
     {{ form_start(form, { 'action': path('app_login') }) }}
+    {{ form_row(form._email) }}
     {{ form_row(form._username) }}
     {{ form_row(form._password) }}
-    {{ form_row(form.login) }}
+    {{ form_row(form._submit) }}
     {{ form_end(form) }}
 
 {% endblock body %}
