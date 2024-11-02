@@ -16,13 +16,13 @@ class LoginController extends AbstractController
 
         $form = $this->createForm(LoginFormType::class);
 
-       // $error = $authenticationUtils->getLastAuthenticationError();
-       // $lastUsername = $authenticationUtils->getLastUsername();
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('Pages/login.html.twig', [
             'form' => $form->createView(),
-           // 'last_username' => $lastUsername,
-           // 'error' => $error
+            'last_username' => $lastUsername,
+            'error' => $error
         ]);
     }
     #[Route('/logout', name: 'app_logout')]
