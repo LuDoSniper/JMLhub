@@ -27,9 +27,9 @@ class UserCreateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $user = new User();
-        $user->setUsername('LuDo_Sniper');
-        $user->setEmail('mon.email@domaine.truc');
-        $user->setPlainpassword('P1tm2pLuDo?!');
+        $user->setUsername('jm');
+        $user->setEmail('jm@jm.fr');
+        $user->setPlainpassword('jpp');
 
         $hashedPassword = $this->hasher->hashPassword($user, $user->getPlainpassword());
         $user->setPassword($hashedPassword);

@@ -39,7 +39,6 @@ class CreateUserCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $email = $input->getArgument('email');
-
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 
