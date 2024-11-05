@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/REPLACEME.html.twig' %}
+
+{#    {{ form_start(form) }}#}
+{#    {{ form_rest(form) }}#}
+{#    <button>Connexion</button>#}
+{#    {{ form_end(form) }}#}
+
+    <form method="post">
+        <input type="email" name="_email" id="email" placeholder="email">
+        <input type="text" name="_username" id="username" placeholder="username">
+        <input type="password" name="_password" id="password" placeholder="password">
+        <button>Connexion</button>
+    </form>
+{% endblock body %}
