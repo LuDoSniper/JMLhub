@@ -2,7 +2,9 @@
 
 namespace App\Form\Movie;
 
+use App\Entity\Movie\Category;
 use App\Entity\Movie\Movie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,6 +44,10 @@ class MovieType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez une note pour le film',
                 ],
+            ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name'
             ])
             ->add('file', FileType::class, [
                 'mapped' => false,
