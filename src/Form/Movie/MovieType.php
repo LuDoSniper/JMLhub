@@ -47,7 +47,7 @@ class MovieType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024M',
+                        'maxSize' => '512M',
                         'mimeTypes' => [
                             'video/mp4',
                             'video/webm',
