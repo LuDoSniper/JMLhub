@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Form\LoginFormType;
+use App\Form\Authentication\LoginFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -23,7 +23,7 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('Page/login.html.twig', [
+        return $this->render('Page/Authentication/login.html.twig', [
             'form' => $form->createView(),
             'last_username' => $lastUsername,
             'error' => $error
