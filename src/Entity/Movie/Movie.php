@@ -29,6 +29,9 @@ class Movie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_path = null;
 
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'movies')]
+    private ?Category $category = null;
+
     // Getter - Setter
 
     public function getId(): ?int
@@ -87,5 +90,14 @@ class Movie
     public function setFilePath(?string $file_path): void
     {
         $this->file_path = $file_path;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
     }
 }
