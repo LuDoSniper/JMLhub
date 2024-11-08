@@ -1,9 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'Layout/base.html.twig' %}
 
 {% block body %}
-
-    {% include 'Widget/header.html.twig' %}
-
     {{ form_start(form) }}
     {{ form_rest(form) }}
     <button>Valider</button>
