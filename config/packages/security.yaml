@@ -9,7 +9,7 @@ security:
                 property: username
         app_user_provider_email:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Authentication\User
                 property: email
         app_user_provider_combine:
             chain:
