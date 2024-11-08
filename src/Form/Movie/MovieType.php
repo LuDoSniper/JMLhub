@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Movie;
 
-use App\Entity\Movie;
+use App\Entity\Movie\Movie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

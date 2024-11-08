@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
-use App\Form\MovieType;
+use App\Entity\Movie\Movie;
+use App\Form\Movie\MovieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
