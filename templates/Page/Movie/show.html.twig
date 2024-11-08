@@ -1,0 +1,9 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+    <h1>{{ movie.title }}</h1>
+    <p>{{ movie.description }}</p>
+    <span>{{ movie.rating }}</span>
+    <span>{{ movie.releaseDate | date }}</span>
+{% endblock %}
+

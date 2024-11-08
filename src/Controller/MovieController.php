@@ -26,7 +26,7 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/movie/create', 'app_movie_create')]
+    #[Route('/movie/admin/create', 'app_movie_create')]
     public function create(
         Request $request
     ): Response
@@ -47,7 +47,7 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/movie/update/{id}', 'app_movie_update')]
+    #[Route('/movie/admin/update/{id}', 'app_movie_update')]
     public function update(
         int $id,
         Request $request
@@ -68,7 +68,7 @@ class MovieController extends AbstractController
         ]);
     }
 
-    #[Route('/movie/remove/{id}', 'app_movie_remove')]
+    #[Route('/movie/admin/remove/{id}', 'app_movie_remove')]
     public function remove(
         int $id,
         Request $request
@@ -79,5 +79,15 @@ class MovieController extends AbstractController
         $this->entityManager->flush();
 
         return $this->redirectToRoute('app_movies');
+    }
+
+    #[Route('/movie/show/{id}', 'app_movie_show')]
+    public function show(
+        Movie $movie
+    ): Response
+    {
+        return $this->render('Page/Movie/show.html.twig', [
+            'movie' => $movie
+        ]);
     }
 }
