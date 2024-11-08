@@ -29,6 +29,7 @@ class UserCreateCommand extends Command
     protected function configure(): void
     {
         $this
+            ->addArgument('email', InputArgument::REQUIRED, 'The email of the new user')
             ->addArgument('username', InputArgument::REQUIRED, 'The username of the new user')
             ->addArgument('password', InputArgument::REQUIRED, 'The password of the new user')
         ;
@@ -39,6 +40,7 @@ class UserCreateCommand extends Command
         $io = new SymfonyStyle($input, $output);
 
         $user = new User();
+        $email = $input->getArgument('email');
         $username = $input->getArgument('username');
         $password = $input->getArgument('password');
 
@@ -48,6 +50,7 @@ class UserCreateCommand extends Command
             return Command::INVALID;
         }
 
+        $user->setEmail($email);
         $user->setUsername($username);
         $user->setPlainpassword($password);
 
