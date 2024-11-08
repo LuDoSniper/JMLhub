@@ -21,5 +21,4 @@ class HomeController extends AbstractController
             'username'=> $this->getUser()->getUsername()
         ]);
     }
-
 }
