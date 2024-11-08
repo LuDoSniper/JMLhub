@@ -17,18 +17,12 @@ class LoginFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('_email', EmailType::class, [
-                'label' => 'Login',
-                //'placeholder' => 'Email or Username',
-                'required' => true,
-            ])
             ->add('_username', TextType::class, [
-                'label' => 'Nom d\'utilisateur',
+                'label' => 'Email ou Nom d\'utilisateur',
                 'required' => true,
             ])
             ->add('_password', PasswordType::class, [
                 'label' => 'Mot de passe',
-                //'placeholder' => 'Mot de passe',
                 'required' => true,
             ])
             ->add('_submit', SubmitType::class, [
@@ -40,5 +34,9 @@ class LoginFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([]);
+    }
+
+    public function getBlockPrefix(): string{
+        return '';
     }
 }
