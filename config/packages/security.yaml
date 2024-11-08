@@ -5,7 +5,7 @@ security:
     providers:
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Authentication\User
                 property: username
 
 
@@ -24,6 +24,7 @@ security:
 
     access_control:
         - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: /admin, roles: ROLE_ADMIN } # pas de ^ car pointe vers toutes les route contenant /admin
         - { path: ^/, roles: ROLE_USER }
 
 when@test:

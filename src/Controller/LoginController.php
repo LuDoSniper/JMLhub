@@ -17,7 +17,7 @@ class LoginController extends AbstractController
         if ($this->getUser()) {
             return $this->redirectToRoute('app_home');
         }
-        return $this->render('Pages/login.html.twig');
+        return $this->render('Page/Authentication/login.html.twig');
 
     }
 
