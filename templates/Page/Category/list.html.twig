@@ -1,0 +1,25 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/REPLACEME.html.twig' %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.name }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>Aucune donnée</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
