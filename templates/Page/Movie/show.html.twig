@@ -5,5 +5,9 @@
     <p>{{ movie.description }}</p>
     <span>{{ movie.rating }}</span>
     <span>{{ movie.releaseDate | date }}</span>
+    <video width="640" height="360" controls>
+        <source src="{{ asset("movies/" ~ movie.filePath) }}" type="video/mp4">
+        Votre navigateur ne supporte pas la lecture de cette vidéo.
+    </video>
 {% endblock %}
 

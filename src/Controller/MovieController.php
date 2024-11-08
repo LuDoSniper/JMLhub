@@ -6,6 +6,7 @@ use App\Entity\Movie\Movie;
 use App\Form\Movie\MovieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -36,6 +37,12 @@ class MovieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file = $form->get('file')->getData();
+            $file_path = uniqid() . '.' . $file->guessExtension();
+            $file->move('movies', $file_path);
+            $movie->setFilePath($file_path);
+
             $this->entityManager->persist($movie);
             $this->entityManager->flush();
 
