@@ -3,7 +3,8 @@
 
 :root {
     --bg-color: #212121;
-    --input-color: #2C2C2C;
+    --panel-color: #2C2C2C;
+    --input-color: #3A3A3A;
     --primary-color: #5CFEBD;
     --text-color: #fff;
     --font-family: Inter, sans-serif;
@@ -39,13 +40,16 @@ body {
 header {
     width: 300px;
     height: 90vh;
-    background: var(--input-color);
+    max-height: 780px;
+    background: var(--panel-color);
     display: flex;
     flex-direction: column;
     border-radius: 36px;
     margin-top: 5vh;
     padding: 24px;
     margin-left: 5vh;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 header .logo {
@@ -110,4 +114,12 @@ header nav ul li a:hover {
 
 header nav ul li a span {
     margin-left: 8px;
+}
+
+@media(max-width: 800px) {
+    header {
+        position: fixed;
+        width: 90%;
+        height: 90%;
+    }
 }
