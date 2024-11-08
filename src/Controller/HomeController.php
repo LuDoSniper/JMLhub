@@ -21,5 +21,4 @@ class HomeController extends AbstractController
     {
          return $this->redirectToRoute('app_login');
     }
-
 }

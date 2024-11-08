@@ -17,8 +17,6 @@ security:
                     - app_user_provider_username
                     - app_user_provider_email
 
-
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

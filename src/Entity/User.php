@@ -35,6 +35,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     private ?string $plainPassword = null;
 
+    // Getter - Setter
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,22 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->email;
     }
-
     public function setEmail(string $email): static
     {
         $this->email = $email;
 
         return $this;
-    }
-
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
     }
 
     /**
@@ -75,7 +66,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
     /**
      * @param list<string> $roles
      */
@@ -93,7 +83,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
-
     public function setPassword(string $password): static
     {
         $this->password = $password;
@@ -105,7 +94,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->plainPassword;
     }
-
     public function setPlainPassword(?string $plainPassword): void
     {
         $this->plainPassword = $plainPassword;
@@ -115,10 +103,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->username;
     }
-
     public function setUsername(?string $username): void
     {
         $this->username = $username;
+    }
+
+    // Methods
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
     }
 
     /**
