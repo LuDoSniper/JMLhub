@@ -1,8 +1,24 @@
-{% extends 'Layout/base.html.twig' %}
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button>Valider</button>
-    {{ form_end(form) }}
+    {% include 'Widget/header.html.twig' %}
+
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-plus"></i></div>
+            <h2>Créer un film</h2>
+            <p>Crée un film, partage ton histoire et fais découvrir ton univers.</p>
+        </div>
+
+        <div class="form-control">
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button type="submit">Créer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock body %}

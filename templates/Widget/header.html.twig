@@ -6,14 +6,24 @@
 
     <nav>
         <ul>
-            <li><a class="active" href="{{ path('app_movies')}}"><i class="uil uil-estate"></i><span>Accueil</span></a></li>
-            <li><a href="#"><i class="uil uil-list-ol-alt"></i> <span>Watchlist</span></a></li>
-            <li><a href="#"><i class="uil uil-clapper-board"></i><span>Manager</span></a></li> <!-- Visible seulement par les administrateurs -->
+            <li><a href="{{ path('app_home')}}" class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
+                    <i class="uil uil-estate"></i><span>Accueil</span></a>
+            </li>
+            <li><a href="#" class="{% if app.request.attributes.get('_route') == 'app_watchlist' %}active{% endif %}">
+                    <i class="uil uil-list-ol-alt"></i> <span>Watchlist</span></a>
+            </li>
+            <li><a href="{{ path('app_movies')}}" class="{% if app.request.attributes.get('_route') == 'app_movies' %}active{% endif %}">
+                    <i class="uil uil-clapper-board"></i><span>Manager</span></a> <!-- Visible seulement par les administrateurs -->
+            </li>
         </ul>
 
         <ul>
-            <li><a href="#"><i class="uil uil-user-circle"></i><span>Profil</span></a></li> <!-- Visible seulement si on est connecté -->
-            <li><a href="#"><i class="uil uil-signout"></i><span>Se déconnecter</span></a></li> <!-- Se connecter si on est pas connecté -->
+            <li><a href="#" class="{% if app.request.attributes.get('_route') == 'app_profile' %}active{% endif %}">
+                    <i class="uil uil-user-circle"></i><span>Profil</span></a> <!-- Visible seulement si on est connecté -->
+            </li>
+            <li><a href="#" class="{% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">
+                    <i class="uil uil-signout"></i><span>Se déconnecter</span></a> <!-- Se connecter si on est pas connecté -->
+            </li>
         </ul>
     </nav>
 </header>

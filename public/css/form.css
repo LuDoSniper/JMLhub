@@ -1,0 +1,101 @@
+.form-container {
+    max-width: 440px;
+    width: 80%;
+    background: var(--panel-color);
+    padding: 16px;
+    border-radius: 36px;
+    margin: 0 auto;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.info .icon {
+    margin-top: 16px;
+}
+
+.info .icon i{
+    font-size: 32px;
+    color: var(--panel-color);
+    background: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 18px;
+}
+
+.info h2 {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-top: 32px;
+}
+
+.info p {
+    color: grey;
+    font-size: 12px;
+    max-width: 275px;
+    margin-top: 8px;
+}
+
+button {
+    display: block;
+    margin: 16px auto;
+    padding: 10px calc(0.65 * 220px);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-family), sans-serif;
+    font-weight: 600;
+    color: var(--bg-color);
+    background-color: var(--primary-color);
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+button:hover {
+    background-color: #94ffd6;
+}
+
+.form-control {
+    margin: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-control label {
+    display: none;
+}
+
+::placeholder {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
+.form-control input, .form-control textarea {
+    width: calc(440px * 0.7);
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: var(--input-color);
+    color: var(--primary-color);
+    padding: 8px;
+    font-family: var(--font-family);
+    font-weight: var(--font-weight);
+    margin-top: 8px;
+}
+
+.form-control input:focus, .form-control textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+}
+
+.form-control textarea {
+    height: 100px;
+    resize: none;
+    font-size: 12px;
+}

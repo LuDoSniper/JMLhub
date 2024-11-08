@@ -1,10 +1,12 @@
-{% extends 'Layout/base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}
-Bienvenue {{ username }}
+    Bienvenue {{ username }}
 {% endblock title%}
+
 {% block body %}
-<p>Vous etes sur la page d'acceuil</p>
+    {% include 'Widget/header.html.twig' %}
+    <p>Vous etes sur la page d'acceuil</p>
 {% endblock body%}
 
 
