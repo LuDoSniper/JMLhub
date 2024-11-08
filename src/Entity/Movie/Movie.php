@@ -26,6 +26,9 @@ class Movie
     #[ORM\Column]
     private ?float $rating = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $file_path = null;
+
     // Getter - Setter
 
     public function getId(): ?int
@@ -75,5 +78,14 @@ class Movie
         $this->rating = $rating;
 
         return $this;
+    }
+
+    public function getFilePath(): ?string
+    {
+        return $this->file_path;
+    }
+    public function setFilePath(?string $file_path): void
+    {
+        $this->file_path = $file_path;
     }
 }
