@@ -42,7 +42,7 @@ class MovieType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez une note pour le film',
                 ],
-            ]);
+            ])
             ->add('file', FileType::class, [
                 'mapped' => false,
                 'constraints' => [
