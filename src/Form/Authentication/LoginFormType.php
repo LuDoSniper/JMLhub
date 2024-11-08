@@ -3,6 +3,7 @@
 namespace App\Form\Authentication;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,6 +22,9 @@ class LoginFormType extends AbstractType
             ->add('_password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'required' => true,
+            ])
+            ->add('remember_me', CheckboxType::class, [
+                'label' => 'Se souvenir de moi'
             ])
             ->add('_submit', SubmitType::class, [
                 'label' => 'Connexion'
