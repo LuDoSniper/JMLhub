@@ -19,9 +19,6 @@ class AddToPlaylistType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Ajouter à la playlist',
             ]);
     }
 
