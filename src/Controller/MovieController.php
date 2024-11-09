@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Movie\Movie;
+use App\Entity\Movie\Playlist;
+use App\Form\Movie\AddToPlaylistType;
 use App\Form\Movie\MovieType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,4 +99,44 @@ class MovieController extends AbstractController
             'movie' => $movie
         ]);
     }
+
+    #[Route('/movie/{id}/add-to-playlist', name: 'app_movie_add_to_playlist')]
+    public function addToPlaylist(Request $request, Movie $movie): Response
+    {
+        $user = $this->getUser();
+
+        $playlists = $user ? $user->getPlaylists() : [];
+
+        $form = $this->createForm(AddToPlaylistType::class, null, [
+            'playlists' => $playlists,
+            'method' => 'POST',
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $selectedPlaylists = $form->get('playlists')->getData();
+
+            foreach ($selectedPlaylists as $playlist) {
+                if ($playlist->getUser() === $user) {
+                    $playlist->addMovie($movie);
+                    $this->entityManager->persist($playlist);
+                }
+            }
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_movies');
+        }
+
+        return $this->render('Page/Movie/add_to_playlist.html.twig', [
+            'form' => $form->createView(),
+            'playlists' => $playlists,
+            'movie' => $movie,
+        ]);
+    }
+
+
+
+
+
+
 }

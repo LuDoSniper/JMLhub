@@ -27,7 +27,10 @@ class PlaylistController extends AbstractController
     #[Route('/movie/playlist/create', 'app_playlist_create')]
     public function create(Request $request): Response
     {
+        $user = $this->getUser();
         $playlist = new Playlist();
+        $playlist->setUser($user);
+
         $form = $this->createForm(PlaylistType::class, $playlist);
         $form->handleRequest($request);
 
@@ -42,6 +45,7 @@ class PlaylistController extends AbstractController
         ]);
     }
 
+
     #[Route('/movie/playlist/remove/{id}', 'app_playlist_remove')]
     public function remove(int $id): Response
     {
@@ -50,6 +54,20 @@ class PlaylistController extends AbstractController
             $this->entityManager->remove($playlist);
             $this->entityManager->flush();
         }
+        return $this->redirectToRoute('app_playlists');
+    }
+
+    #[Route('/movie/playlist/{id}/add-movie/{movieId}', 'app_playlist_add_movie')]
+    public function addMovie(int $id, int $movieId): Response
+    {
+        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
+        $movie = $this->entityManager->getRepository(Movie::class)->find($movieId);
+
+        if ($playlist && $movie) {
+            $playlist->addMovie($movie);
+            $this->entityManager->flush();
+        }
+
         return $this->redirectToRoute('app_playlists');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Movie;
 
+use App\Entity\Authentication\User;
 use App\Repository\Movie\PlaylistRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,6 +21,10 @@ class Playlist
 
     #[ORM\ManyToMany(targetEntity: Movie::class)]
     private Collection $movies;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'playlists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -62,6 +67,18 @@ class Playlist
     public function removeMovie(Movie $movie): static
     {
         $this->movies->removeElement($movie);
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

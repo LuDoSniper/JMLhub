@@ -9,7 +9,7 @@
             <li><a href="{{ path('app_home')}}" class="{% if app.request.attributes.get('_route') == 'app_home' %}active{% endif %}">
                     <i class="uil uil-estate"></i><span>Accueil</span></a>
             </li>
-            <li><a href="{{ path('app_playlists') }}" class="{% if app.request.attributes.get('_route') == 'app_watchlist' %}active{% endif %}">
+            <li><a href="{{ path('app_playlists') }}" class="{% if app.request.attributes.get('_route') == 'app_playlists' %}active{% endif %}">
                     <i class="uil uil-list-ol-alt"></i> <span>Watchlist</span></a>
             </li>
             <li><a href="{{ path('app_movies')}}" class="{% if app.request.attributes.get('_route') == 'app_movies' %}active{% endif %}">

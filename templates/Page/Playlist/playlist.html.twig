@@ -7,6 +7,12 @@
 
     {% for playlist in playlists %}
         <h2>{{ playlist.name }}</h2>
+        <ul>
+            {% for movie in playlist.movies %}
+                <li>{{ movie.title }}
+                </li>
+            {% endfor %}
+        </ul>
         <a href="{{ path('app_playlist_remove', { id: playlist.id }) }}">Supprimer</a>
     {% endfor %}
 {% endblock %}
