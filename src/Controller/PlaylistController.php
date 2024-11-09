@@ -70,4 +70,18 @@ class PlaylistController extends AbstractController
 
         return $this->redirectToRoute('app_playlists');
     }
+
+    #[Route('/movie/playlist/{id}/remove-movie/{movieId}', 'app_playlist_remove_movie')]
+    public function removeMovie(int $id, int $movieId): Response
+    {
+        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
+        $movie = $this->entityManager->getRepository(Movie::class)->find($movieId);
+
+        if ($playlist && $movie) {
+            $playlist->removeMovie($movie);
+            $this->entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_playlists');
+    }
 }

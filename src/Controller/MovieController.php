@@ -104,11 +104,17 @@ class MovieController extends AbstractController
     public function addToPlaylist(Request $request, Movie $movie): Response
     {
         $user = $this->getUser();
-
         $playlists = $user ? $user->getPlaylists() : [];
+        $selectedPlaylists = [];
+        foreach ($playlists as $playlist) {
+            if ($playlist->getMovies()->contains($movie)) {
+                $selectedPlaylists[] = $playlist;
+            }
+        }
 
         $form = $this->createForm(AddToPlaylistType::class, null, [
             'playlists' => $playlists,
+            'selectedPlaylists' => $selectedPlaylists,
             'method' => 'POST',
         ]);
         $form->handleRequest($request);
@@ -116,12 +122,22 @@ class MovieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $selectedPlaylists = $form->get('playlists')->getData();
 
-            foreach ($selectedPlaylists as $playlist) {
+            foreach ($playlists as $playlist) {
                 if ($playlist->getUser() === $user) {
-                    $playlist->addMovie($movie);
-                    $this->entityManager->persist($playlist);
+                    if (in_array($playlist, $selectedPlaylists)) {
+                        if (!$playlist->getMovies()->contains($movie)) {
+                            $playlist->addMovie($movie);
+                            $this->entityManager->persist($playlist);
+                        }
+                    } else {
+                        if ($playlist->getMovies()->contains($movie)) {
+                            $playlist->removeMovie($movie);
+                            $this->entityManager->persist($playlist);
+                        }
+                    }
                 }
             }
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_movies');
@@ -133,6 +149,7 @@ class MovieController extends AbstractController
             'movie' => $movie,
         ]);
     }
+
 
 
 
