@@ -24,7 +24,8 @@ class LoginFormType extends AbstractType
                 'required' => true,
             ])
             ->add('remember_me', CheckboxType::class, [
-                'label' => 'Se souvenir de moi'
+                'label' => 'Se souvenir de moi',
+                'required' => false
             ])
             ->add('_submit', SubmitType::class, [
                 'label' => 'Connexion'
