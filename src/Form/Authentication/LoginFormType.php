@@ -18,14 +18,21 @@ class LoginFormType extends AbstractType
             ->add('_username', TextType::class, [
                 'label' => 'Email ou Nom d\'utilisateur',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Email ou nom d\'utilisateur',
+                ],
             ])
             ->add('_password', PasswordType::class, [
                 'label' => 'Mot de passe',
                 'required' => true,
+                'attr' => [
+                    'placeholder' => 'Mot de passe',
+                ],
             ])
             ->add('remember_me', CheckboxType::class, [
                 'label' => 'Se souvenir de moi',
-                'required' => false
+                'required' => false,
+
             ])
             ->add('_submit', SubmitType::class, [
                 'label' => 'Connexion'

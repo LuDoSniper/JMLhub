@@ -77,7 +77,7 @@ button:hover {
     opacity: 1;
 }
 
-.form-control input:not([type="file"]), .form-control textarea {
+.form-control input:not([type="file"]):not([type="checkbox"]), .form-control textarea {
     width: calc(440px * 0.7);
     height: 32px;
     border: none;
