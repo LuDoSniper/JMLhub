@@ -16,7 +16,16 @@
 
         <div class="form-control">
             {{ form_start(form) }}
-            {{ form_rest(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.releaseDate) }}
+            {{ form_row(form.rating) }}
+
+            <div class="selection">
+                {{ form_row(form.category) }}
+            </div>
+
+            {{ form_row(form.file) }}
             <button type="submit">Mettre à jour</button>
             {{ form_end(form) }}
         </div>
