@@ -57,6 +57,24 @@ class PlaylistController extends AbstractController
         return $this->redirectToRoute('app_playlists');
     }
 
+    #[Route('/movie/playlist/update/{id}', 'app_playlist_update')]
+    public function update(int $id, Request $request): Response
+    {
+        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
+        $form = $this->createForm(PlaylistType::class, $playlist);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_playlists');
+        }
+
+        return $this->render('Page/Playlist/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
     #[Route('/movie/playlist/{id}/add-movie/{movieId}', 'app_playlist_add_movie')]
     public function addMovie(int $id, int $movieId): Response
     {

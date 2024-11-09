@@ -14,6 +14,6 @@
                 </li>
             {% endfor %}
         </ul>
-        <a href="{{ path('app_playlist_remove', { id: playlist.id }) }}">Supprimer</a>
+        {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
     {% endfor %}
 {% endblock %}
