@@ -49,7 +49,7 @@ header {
     padding: 24px;
     margin-left: 5vh;
     overflow: hidden;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 header .logo {
