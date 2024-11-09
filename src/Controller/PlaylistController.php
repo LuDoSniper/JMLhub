@@ -41,4 +41,15 @@ class PlaylistController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/movie/playlist/remove/{id}', 'app_playlist_remove')]
+    public function remove(int $id): Response
+    {
+        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
+        if ($playlist) {
+            $this->entityManager->remove($playlist);
+            $this->entityManager->flush();
+        }
+        return $this->redirectToRoute('app_playlists');
+    }
 }

@@ -7,5 +7,6 @@
 
     {% for playlist in playlists %}
         <h2>{{ playlist.name }}</h2>
+        <a href="{{ path('app_playlist_remove', { id: playlist.id }) }}">Supprimer</a>
     {% endfor %}
 {% endblock %}
