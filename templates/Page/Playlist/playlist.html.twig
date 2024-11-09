@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include 'Widget/header.html.twig' %}
     <h1>Mes playlists</h1>
     <a href="{{ path('app_playlist_create') }}">Créer une playlist</a>
 

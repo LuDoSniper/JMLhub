@@ -23,4 +23,22 @@ class PlaylistController extends AbstractController
             'playlists' => $playlists,
         ]);
     }
+
+    #[Route('/movie/playlist/create', 'app_playlist_create')]
+    public function create(Request $request): Response
+    {
+        $playlist = new Playlist();
+        $form = $this->createForm(PlaylistType::class, $playlist);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($playlist);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('app_playlists');
+        }
+
+        return $this->render('Page/Playlist/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }

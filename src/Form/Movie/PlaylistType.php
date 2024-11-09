@@ -17,13 +17,6 @@ class PlaylistType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de la playlist',
-            ])
-            ->add('movies', EntityType::class, [
-                'class' => Movie::class,
-                'choice_label' => 'title',
-                'multiple' => true,
-                'expanded' => true,
-                'label' => 'Films',
             ]);
     }
 

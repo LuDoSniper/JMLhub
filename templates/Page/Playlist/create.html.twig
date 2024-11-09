@@ -1,0 +1,9 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button type="submit">Créer</button>
+            {{ form_end(form) }}
+{% endblock body %}
