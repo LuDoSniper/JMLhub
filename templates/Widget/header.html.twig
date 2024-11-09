@@ -21,7 +21,7 @@
             <li><a href="#" class="{% if app.request.attributes.get('_route') == 'app_profile' %}active{% endif %}">
                     <i class="uil uil-user-circle"></i><span>Profil</span></a> <!-- Visible seulement si on est connecté -->
             </li>
-            <li><a href="#" class="{% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">
+            <li><a href="{{ path('app_logout')}}" class="{% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">
                     <i class="uil uil-signout"></i><span>Se déconnecter</span></a> <!-- Se connecter si on est pas connecté -->
             </li>
         </ul>
