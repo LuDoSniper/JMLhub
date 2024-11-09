@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Mes playlists</h1>
+    <a href="{{ path('app_playlist_create') }}">Créer une playlist</a>
+
+    {% for playlist in playlists %}
+        <h2>{{ playlist.name }}</h2>
+    {% endfor %}
+{% endblock %}
