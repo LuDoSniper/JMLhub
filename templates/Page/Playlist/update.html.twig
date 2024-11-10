@@ -1,10 +1,23 @@
 {% extends 'Layout/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
 {% block body %}
     {% include 'Widget/header.html.twig' %}
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-sign-in-alt"></i></div>
+            <h2>Watchlist</h2>
+            <p>Modifie ta watchlist, ajoute tes films préférés et retrouve-les facilement pour tes prochaines séances !</p>
+        </div>
 
+        <div class="form-control">
             {{ form_start(form) }}
             {{ form_rest(form) }}
-            <button type="submit">Mettre à jour</button>
+            <button>Mettre à jour</button>
             {{ form_end(form) }}
+        </div>
+    </div>
 {% endblock body %}
