@@ -12,6 +12,9 @@
             <li><a href="{{ path('app_playlists') }}" class="{% if app.request.attributes.get('_route') == 'app_playlists' %}active{% endif %}">
                     <i class="uil uil-list-ol-alt"></i> <span>Watchlist</span></a>
             </li>
+        </ul>
+
+        <ul>
             <li><a href="{{ path('app_movies')}}" class="{% if app.request.attributes.get('_route') == 'app_movies' %}active{% endif %}">
                     <i class="uil uil-clapper-board"></i><span>Manager</span></a> <!-- Visible seulement par les administrateurs -->
             </li>

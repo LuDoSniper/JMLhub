@@ -81,12 +81,12 @@ header nav ul {
     list-style: none;
 }
 
-header nav ul:nth-child(1) {
+header nav ul:not(:last-child) {
     margin-bottom: 76px;
     position: relative;
 }
 
-header nav ul:nth-child(1)::after {
+header nav ul:not(:last-child)::after {
     content: '';
     position: absolute;
     bottom: -48px;
