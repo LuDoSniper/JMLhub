@@ -2,18 +2,46 @@
 
 {% block body %}
     {% include 'Widget/header.html.twig' %}
-    <h1>Mes playlists</h1>
-    <a href="{{ path('app_playlist_create') }}">Créer une playlist</a>
 
-    {% for playlist in playlists %}
-        <h2>{{ playlist.name }}</h2>
-        <ul>
-            {% for movie in playlist.movies %}
-                <li>{{ movie.title }}
-                    <a href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">Retirer</a>
-                </li>
+    <div class="manage">
+        <a class="button" href="{{ path('app_playlist_create') }}">Créer une playlist</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom de la playlist</th>
+                    <th>Films</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for playlist in playlists %}
+                <tr>
+                    <td>{{ playlist.name }}</td>
+                    <td>
+                        <ul>
+                            {% for movie in playlist.movies %}
+                                <li>
+                                    {{ movie.title }}
+                                    <a class="button delete movie" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">-</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                </tr>
             {% endfor %}
-        </ul>
-        {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
-    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        .button.delete.movie {
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+    </style>
 {% endblock %}
