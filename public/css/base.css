@@ -136,3 +136,12 @@ header nav ul li a span {
     background: rgba(92, 254, 189, 0.22);
 }
 
+.button.edit{
+    color: #fed05c;
+    border: 1px solid #fed05c;
+}
+
+.button.edit:hover {
+    background: rgba(254, 208, 92, 0.22);
+}
+
