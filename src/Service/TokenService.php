@@ -26,7 +26,7 @@ class TokenService
      *
      * @return string Le token généré, encodé en base64
      */
-    public function generateExpiringToken($userId,$expiryTime = 3600): string {
+    public function generateExpiringToken($userId,$expiryTime = 360): string {
         $expiration = time() + $expiryTime;
         $data = $userId . '|' . $expiration;
 

@@ -3,6 +3,7 @@
 namespace App\Form\Security;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -32,19 +33,18 @@ class ResetPasswordFormType extends AbstractType
             ->add('_submit', SubmitType::class, [
                 'label' => 'Confirmer',
             ]);
-        $builder->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormInterface $form) {
-                $password = $form->get('password')->getData();
-                $confirmPassword = $form->get('confirm_password')->getData();
 
-                if ($password !== $confirmPassword) {
-                    // Ajoute une erreur sur le champ confirm_password si les mots de passe ne correspondent pas
-                    $form->get('confirm_password')->addError(
-                        new FormError('Les mots de passe ne correspondent pas.')
-                    );
-                }
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (PostSubmitEvent $event) {
+            $form = $event->getForm();
+
+            // Récupère les mots de passe
+            $password = $form->get('password')->getData();
+            $confirmPassword = $form->get('confirm_password')->getData();
+
+            // Vérifie s'ils correspondent
+            if ($password !== $confirmPassword) {
+                $form->get('confirm_password')->addError(new FormError('Les mots de passe ne correspondent pas.'));
             }
-        );
+        });
     }
 }
