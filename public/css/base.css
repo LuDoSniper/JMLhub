@@ -123,3 +123,16 @@ header nav ul li a span {
         height: 90%;
     }
 }
+
+.button {
+    padding: 8px 4px;
+    border-radius: 8px;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    transition: .3s ease-in-out;
+}
+
+.button:hover {
+    background: rgba(92, 254, 189, 0.22);
+}
+
