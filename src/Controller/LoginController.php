@@ -78,7 +78,6 @@ class LoginController extends AbstractController
                     'password_reset', // Template Twig pour l'email
                     compact('user', 'url') // Variables à transmettre au template Twig
                 );
-                dd($mail);
 
                 // Ajouter un message flash de succès
                 $this->addFlash('success', 'Email envoyé avec succès');
