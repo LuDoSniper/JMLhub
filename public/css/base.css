@@ -145,3 +145,11 @@ header nav ul li a span {
     background: rgba(254, 208, 92, 0.22);
 }
 
+.button.delete{
+    color: #fe5c5c;
+    border: 1px solid #FE5C5CFF;
+}
+
+.button.delete:hover {
+    background: rgba(254, 92, 92, 0.22);
+}
