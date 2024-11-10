@@ -29,7 +29,7 @@ class CategoryController extends AbstractController
             $this->entityManager->persist($category);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_category_list');
         }
 
         return $this->render('Page/Category/create.html.twig', [
@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_category_list');
         }
 
         return $this->render('Page/Category/update.html.twig', [
@@ -65,7 +65,7 @@ class CategoryController extends AbstractController
         $this->entityManager->remove($category);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_category_list');
     }
 
     #[Route('/category/list', 'app_category_list')]

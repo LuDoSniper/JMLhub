@@ -15,6 +15,9 @@
             <li><a href="{{ path('app_movies')}}" class="{% if app.request.attributes.get('_route') == 'app_movies' %}active{% endif %}">
                     <i class="uil uil-clapper-board"></i><span>Manager</span></a> <!-- Visible seulement par les administrateurs -->
             </li>
+            <li><a href="{{ path('app_category_list')}}" class="{% if app.request.attributes.get('_route') == 'app_category_list' %}active{% endif %}">
+                    <i class="uil uil-clapper-board"></i><span>Catégorie</span></a> <!-- Visible seulement par les administrateurs -->
+            </li>
         </ul>
 
         <ul>
