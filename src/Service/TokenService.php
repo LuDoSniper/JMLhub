@@ -65,4 +65,16 @@ class TokenService
         return hash_equals($signature, $expectedSignature);
     }
 
+    // Décodage du token pour extraire les données (userId, expiration)
+    public function decodeExpiringToken($token): array
+    {
+        $decoded = base64_decode($token);
+        [$userId, $expiration] = explode('|', $decoded);  // On ne prend plus la signature ici
+
+        return [
+            'user_id' => (int)$userId, // ID de l'utilisateur
+            'expiration' => (int)$expiration, // Timestamp d'expiration
+        ];
+    }
+
 }
