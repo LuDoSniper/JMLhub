@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordFormType extends AbstractType
@@ -20,12 +21,20 @@ class ResetPasswordFormType extends AbstractType
         $builder
             ->add('password', PasswordType::class, [
                 'label' => 'Nouveau mot de passe',
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de renseigner votre mot de passe']),
-                ]
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                        'max' => 4096,
+                    ]),
+                ],
             ])
+
             ->add('confirm_password', PasswordType::class, [
                 'label' => 'Confirmer le mot de passe',
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de renseigner votre mot de passe']),
                 ]
