@@ -4,17 +4,14 @@
     {% include 'Widget/header.html.twig' %}
 
     <div class="manage">
-        <h1>Mes playlists</h1>
-
         <a class="button" href="{{ path('app_playlist_create') }}">Créer une playlist</a>
-
         <table>
             <thead>
-            <tr>
-                <th>Nom de la playlist</th>
-                <th>Films</th>
-                <th>Actions</th>
-            </tr>
+                <tr>
+                    <th>Nom de la playlist</th>
+                    <th>Films</th>
+                    <th>Actions</th>
+                </tr>
             </thead>
             <tbody>
             {% for playlist in playlists %}
@@ -25,14 +22,12 @@
                             {% for movie in playlist.movies %}
                                 <li>
                                     {{ movie.title }}
-                                    <a class="button delete" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">Retirer</a>
+                                    <a class="button delete movie" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">-</a>
                                 </li>
                             {% endfor %}
                         </ul>
                     </td>
-                    <td>
-                        {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
-                    </td>
+                    {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
                 </tr>
             {% else %}
                 <tr>
@@ -42,4 +37,11 @@
             </tbody>
         </table>
     </div>
+
+    <style>
+        .button.delete.movie {
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+    </style>
 {% endblock %}
