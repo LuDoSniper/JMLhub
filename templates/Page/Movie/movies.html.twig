@@ -2,8 +2,11 @@
 
 {% block body %}
     {% include 'Widget/header.html.twig' %}
-    <table>
-        <thead>
+    <div class="manage">
+        <a class="button" href="{{ path('app_movie_create') }}">Créer</a>
+        <table>
+            <thead>
+
             <tr>
                 <th>Titre</th>
                 <th>Description</th>
@@ -11,8 +14,8 @@
                 <th>Note</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for movie in movies %}
                 <tr>
                     <td>{{ movie.title }}</td>
@@ -24,9 +27,8 @@
             {% else %}
                 <span>Aucunes données</span>
             {% endfor %}
-        </tbody>
-    </table>
-
-    <a class="button" href="{{ path('app_movie_create') }}">Créer</a>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
 
