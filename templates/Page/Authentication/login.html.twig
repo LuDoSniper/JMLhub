@@ -37,6 +37,9 @@
                 <label for="{{ form.remember_me.vars.id }}" style="display: block;">Se souvenir de moi</label>
             </div>
             {{ form_end(form) }}
+            <div>
+                <p><a href="{{ path('app_forgottenpassword') }}">Mot de passe oublié</a></p>
+            </div>
         </div>
     </div>
 
