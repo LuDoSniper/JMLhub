@@ -167,7 +167,7 @@ class LoginController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('Page/Authentication/signup.html.twig', [
