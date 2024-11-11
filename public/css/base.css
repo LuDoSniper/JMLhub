@@ -180,7 +180,7 @@ header nav ul li a span {
 }
 
 .manage {
-    margin: 5vh;
+    margin: calc(5vh + 12px) 5vh;
     width: 100%;
 }
 

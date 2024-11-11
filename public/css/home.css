@@ -160,9 +160,15 @@
 }
 
 .movie .movie-content {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+}
+
+.movie .movie-content .buttons {
+    display: flex;
+    gap: 8px;
 }
 
 .movie h4 {
@@ -184,10 +190,26 @@
     font-size: 20px;
 }
 
-.movie .buttons a:hover {
+.movie a:hover {
     background: var(--bg-color);
     color: var(--text-color);
 }
+
+.movie a:nth-child(2) {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.movie a:hover {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.movie a:nth-child(2):hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
 
 @media (max-width: 768px) {
     .content {

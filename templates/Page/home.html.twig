@@ -26,7 +26,9 @@
                     <p>{{ lastMovie.description }}</p>
                     <div class="buttons">
                         <a href="{{ path('app_movie_show', {id: lastMovie.id}) }}"><i class="uil uil-play"></i><span>Regarder maintenant</span></a>
-                        <a href="#"><i class="uil uil-download-alt"></i><span>Télécharge</span>r</a>
+                        <a href="{{ asset("movies/" ~ lastMovie.filePath) }}" download>
+                            <i class="uil uil-download-alt"></i><span>Télécharger</span>
+                        </a>
                     </div>
                 {% else %}
                     <p>Aucun film disponible.</p>
@@ -43,7 +45,12 @@
                             <div class="movie">
                                 <div class="movie-content">
                                     <h4>{{ movie.title }}</h4>
-                                    <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
+                                    <div class="buttons">
+                                        <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
+                                        <a href="{{ asset("movies/" ~ movie.filePath) }}" download>
+                                            <i class="uil uil-download-alt"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}

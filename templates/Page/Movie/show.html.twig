@@ -1,13 +1,26 @@
 {% extends 'Layout/base.html.twig' %}
 
-{% block body %}
-    <h1>{{ movie.title }}</h1>
-    <p>{{ movie.description }}</p>
-    <span>{{ movie.rating }}</span>
-    <span>{{ movie.releaseDate | date }}</span>
-    <video width="640" height="360" controls>
-        <source src="{{ asset("movies/" ~ movie.filePath) }}" type="video/mp4">
-        Votre navigateur ne supporte pas la lecture de cette vidéo.
-    </video>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/movie.css') }}">
 {% endblock %}
 
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+
+    <div class="movie-view">
+        <h1 class="movie-title">{{ movie.title }}</h1>
+        <div class="movie-details">
+            <p class="movie-description">{{ movie.description }}</p>
+            <div class="movie-info">
+                <span class="movie-rating">Note : {{ movie.rating }}</span>
+                <span class="movie-release-date">Sortie : {{ movie.releaseDate | date('d/m/Y') }}</span>
+            </div>
+        </div>
+        <div class="movie-player">
+            <video class="video-player" controls>
+                <source src="{{ asset("movies/" ~ movie.filePath) }}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture de cette vidéo.
+            </video>
+        </div>
+    </div>
+{% endblock %}
