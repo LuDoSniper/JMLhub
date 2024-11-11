@@ -21,13 +21,13 @@
             <li><a href="{{ path('app_category_list')}}" class="{% if app.request.attributes.get('_route') == 'app_category_list' %}active{% endif %}">
                     <i class="uil uil-inbox"></i><span>Catégorie</span></a> <!-- Visible seulement par les administrateurs -->
             </li>
-            <li><a href="{#{{ path('app_user_list')}}#}#" class="{% if app.request.attributes.get('_route') == 'app_user_list' %}active{% endif %}">
+            <li><a href="{{ path('app_user_list')}}" class="{% if app.request.attributes.get('_route') == 'app_user_list' %}active{% endif %}">
                     <i class="uil uil-users-alt"></i><span>Utilisateurs</span></a> <!-- Visible seulement par les administrateurs -->
             </li>
         </ul>
 
         <ul>
-            <li><a href="{# {{ path('app_profile_update')}} #}#" class="{% if app.request.attributes.get('_route') == 'app_profile_update' %}active{% endif %}">
+            <li><a href="{{ path('app_profile_update')}}" class="{% if app.request.attributes.get('_route') == 'app_profile_update' %}active{% endif %}">
                     <i class="uil uil-user-circle"></i><span>Profil</span></a>
             </li>
             <li><a href="{{ path('app_logout')}}" class="{% if app.request.attributes.get('_route') == 'app_logout' %}active{% endif %}">

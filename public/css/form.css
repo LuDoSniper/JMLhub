@@ -175,3 +175,14 @@ button:hover {
     background: var(--input-color);
     color: var(--primary-color);
 }
+
+.form-control .password {
+    width: calc(440px * 0.7);
+    text-align: right;
+
+}
+
+.form-control .password a {
+    color: var(--primary-color);
+    font-size: 12px;
+}
