@@ -21,6 +21,9 @@ class ResetPasswordFormType extends AbstractType
         $builder
             ->add('password', PasswordType::class, [
                 'label' => 'Nouveau mot de passe',
+                'attr' => [
+                    'placeholder' => 'Nouveau mot de passe',
+                ],
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de renseigner votre mot de passe']),
@@ -34,6 +37,9 @@ class ResetPasswordFormType extends AbstractType
 
             ->add('confirm_password', PasswordType::class, [
                 'label' => 'Confirmer le mot de passe',
+                'attr' => [
+                    'placeholder' => 'Confirmer le mot de passe',
+                ],
                 'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Merci de renseigner votre mot de passe']),
