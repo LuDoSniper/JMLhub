@@ -67,7 +67,7 @@ class UserController extends AbstractController
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_user_list');
     }
 
     #[Route('/profile/update/', 'app_profile_update')]
@@ -87,6 +87,16 @@ class UserController extends AbstractController
 
         return $this->render('Page/User/profileUpdate.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    #[Route('/user/admin/list', 'app_user_list')]
+    public function userList(): Response
+    {
+        $users = $this->entityManager->getRepository(User::class)->findAll();
+
+        return $this->render('Page/User/list.html.twig', [
+            'users' => $users
         ]);
     }
 
