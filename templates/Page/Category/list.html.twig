@@ -4,24 +4,26 @@
     {% include 'Widget/header.html.twig' %}
     <div class="manage">
         <a class="button" href="{{ path('app_category_create') }}">Créer</a>
-        <table>
-            <thead>
-            <tr>
-                <th>Nom de la catégorie</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for category in categories %}
+        <div class="table-container">
+            <table>
+                <thead>
                 <tr>
-                    <td>{{ category.name }}</td>
-                    {% include 'Widget/Category/actions.html.twig' with {'category': category} %}
+                    <th>Nom de la catégorie</th>
+                    <th>Actions</th>
                 </tr>
-            {% else %}
-                <span>Aucune donnée</span>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{ category.name }}</td>
+                        {% include 'Widget/Category/actions.html.twig' with {'category': category} %}
+                    </tr>
+                {% else %}
+                    <span>Aucune donnée</span>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
 

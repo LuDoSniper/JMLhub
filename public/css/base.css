@@ -49,7 +49,7 @@ header {
     padding: 24px;
     margin-left: 5vh;
     overflow: hidden;
-    /*overflow-y: scroll;*/
+    transition: .3s ease-in-out;
 }
 
 header .logo {
@@ -116,11 +116,34 @@ header nav ul li a span {
     margin-left: 8px;
 }
 
-@media(max-width: 800px) {
+#label-header {
+    position: fixed;
+    font-size: 32px;
+    right: 16px;
+    top: 24px;
+    cursor: pointer;
+    display: none;
+}
+
+@media(max-width: 1370px) {
     header {
         position: fixed;
-        width: 90%;
-        height: 90%;
+        width: 100%;
+        z-index: 10;
+        top: 16px;
+        left: -100%;
+        margin: 0;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+    }
+
+    #label-header {
+        display: block;
+        z-index: 12;
+    }
+
+    #checkbox-header:checked~header {
+        left: 0;
     }
 }
 
@@ -155,13 +178,28 @@ header nav ul li a span {
 }
 
 .manage {
-    margin: calc(5vh + 12px) 0 0 5vh;
-    width: 70%;
-    max-width: 1280px;
+    margin: 5vh;
+    width: 100%;
+}
+
+@media(max-width: 1370px) {
+    body {
+        padding: 32px;
+    }
+
+    .manage {
+        margin: 0;
+    }
+}
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
 }
 
 table {
     width: 100%;
+    min-width: 1000px; /* Largeur minimale pour garder une taille fixe */
     border-collapse: collapse;
     background-color: var(--panel-color);
     color: var(--text-color);
@@ -170,6 +208,7 @@ table {
     font-size: var(--font-size);
     margin-top: 16px;
 }
+
 
 table thead {
     background-color: var(--primary-color);

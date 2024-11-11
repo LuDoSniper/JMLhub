@@ -1,10 +1,9 @@
 .form-container {
-    max-width: 440px;
-    width: 80%;
+    width: 440px;
     background: var(--panel-color);
-    padding: 16px;
     border-radius: 36px;
     margin: 5vh auto;
+    padding-top: 16px;
 }
 
 .info {
@@ -189,4 +188,5 @@ button:hover {
 
 .form-control a {
     text-decoration: underline;
+    color: var(--primary-color);
 }

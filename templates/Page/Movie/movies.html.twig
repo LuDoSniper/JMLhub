@@ -4,30 +4,34 @@
     {% include 'Widget/header.html.twig' %}
     <div class="manage">
         <a class="button" href="{{ path('app_movie_create') }}">Créer</a>
-        <table>
-            <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Date de parution</th>
-                    <th>Note</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for movie in movies %}
-                <tr>
-                    <td>{{ movie.title }}</td>
-                    <td>{{ movie.description }}</td>
-                    <td>{{ movie.releaseDate | date }}</td>
-                    <td>{{ movie.rating }}</td>
-                    {% include 'Widget/Movie/actions.html.twig' with {'movie': movie} %}
-                </tr>
-            {% else %}
-                <span>Aucunes données</span>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <div class="t-content">
+                    <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Date de parution</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for movie in movies %}
+                        <tr>
+                            <td>{{ movie.title }}</td>
+                            <td>{{ movie.description }}</td>
+                            <td>{{ movie.releaseDate | date }}</td>
+                            <td>{{ movie.rating }}</td>
+                            {% include 'Widget/Movie/actions.html.twig' with {'movie': movie} %}
+                        </tr>
+                    {% else %}
+                        <span>Aucunes données</span>
+                    {% endfor %}
+                    </tbody>
+                </div>
+            </table>
+        </div>
     </div>
 {% endblock %}
 

@@ -5,37 +5,39 @@
 
     <div class="manage">
         <a class="button" href="{{ path('app_playlist_create') }}">Créer une playlist</a>
-        <table>
-            <thead>
+        <div class="table-container">
+            <table>
+                <thead>
                 <tr>
                     <th>Nom de la playlist</th>
                     <th>Films</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
-            {% for playlist in playlists %}
-                <tr>
-                    <td>{{ playlist.name }}</td>
-                    <td>
-                        <ul>
-                            {% for movie in playlist.movies %}
-                                <li>
-                                    {{ movie.title }}
-                                    <a class="button delete movie" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">-</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                    {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="3" class="no-data">Aucune playlist disponible</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for playlist in playlists %}
+                    <tr>
+                        <td>{{ playlist.name }}</td>
+                        <td>
+                            <ul>
+                                {% for movie in playlist.movies %}
+                                    <li>
+                                        {{ movie.title }}
+                                        <a class="button delete movie" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">-</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <style>
