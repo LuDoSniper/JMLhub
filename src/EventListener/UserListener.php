@@ -18,12 +18,20 @@ class UserListener
     /**
      * Génére un token pour la réinitialisation de mot de passe avant la création de l'utilisateur.
      */
-    public function prePersist(User $user, LifecycleEventArgs $event): void
+    public function prePersist(LifecycleEventArgs $event): void
     {
+        // Récupère l'entité en cours de persistance
+        $entity = $event->getObject();
+
+        // Vérifie que l'entité est bien un utilisateur
+        if (!$entity instanceof User) {
+            return;
+        }
+
         // Génère un token pour la réinitialisation de mot de passe
-        $token = $this->tokenService->generateExpiringToken($user->getId());
+        $token = $this->tokenService->generateExpiringToken($entity->getId());
 
         // Assigne le token de réinitialisation à l'utilisateur
-        $user->setResetToken($token);
+        $entity->setResetToken($token);
     }
 }

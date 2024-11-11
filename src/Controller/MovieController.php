@@ -19,7 +19,7 @@ class MovieController extends AbstractController
         public EntityManagerInterface $entityManager
     ){}
 
-    #[Route('/movies', 'app_movies')]
+    #[Route('/movie/admin/list', 'app_movies')]
     public function movies(): Response
     {
         $movies = $this->entityManager->getRepository(Movie::class)->findAll();

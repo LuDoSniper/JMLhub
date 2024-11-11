@@ -68,7 +68,7 @@ class CategoryController extends AbstractController
         return $this->redirectToRoute('app_category_list');
     }
 
-    #[Route('/category/list', 'app_category_list')]
+    #[Route('/category/admin/list', 'app_category_list')]
     public function categoryList(): Response
     {
         $categories = $this->entityManager->getRepository(Category::class)->findAll();
