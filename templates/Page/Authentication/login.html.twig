@@ -31,15 +31,18 @@
                 <i class="uil uil-lock"></i>
                 {{ form_row(form._password) }}
             </div>
+            <div class="password">
+                <div class="remember_me">
+                    {{ form_row(form.remember_me) }}
+                    <label for="{{ form.remember_me.vars.id }}" style="display: block;">Se souvenir de moi</label>
+                </div>
+                <a href="{{ path('app_forgottenpassword') }}">Mot de passe oublié ?</a>
+
+            </div>
+
             {{ form_row(form._submit) }}
-            <div class="remember_me">
-                {{ form_row(form.remember_me) }}
-                <label for="{{ form.remember_me.vars.id }}" style="display: block;">Se souvenir de moi</label>
-            </div>
+
             {{ form_end(form) }}
-            <div>
-                <p><a href="{{ path('app_forgottenpassword') }}">Mot de passe oublié</a></p>
-            </div>
         </div>
     </div>
 
@@ -100,6 +103,13 @@
             left: 8px;
             top: calc(50% - 8px);
             font-size: 20px;
+        }
+
+        .password {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 4px;
         }
 
     </style>

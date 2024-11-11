@@ -1,0 +1,29 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-sign-in-alt"></i></div>
+            <h2>Utilisateurs</h2>
+            <p>Modifie ton profil, ajoute des informations dès maintenant !</p>
+        </div>
+
+        <div class="form-control">
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button>Mettre à jour</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <style>
+        .icon {
+            transform: rotate(180deg);
+        }
+    </style>
+{% endblock body %}
