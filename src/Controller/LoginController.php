@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Authentication\User;
 use App\Form\Authentication\LoginFormType;
+use App\Form\Authentication\SignupFormType;
 use App\Form\Security\ResetPasswordFormType;
 use App\Form\Security\ResetPasswordRequestFormType;
 use App\Repository\Authentication\UserRepository;
@@ -144,6 +146,33 @@ class LoginController extends AbstractController
         // Si le token est invalide ou a expiré
         $this->addFlash('danger', 'Le token est invalide ou a expiré');
         return $this->redirectToRoute('app_login');
+    }
+
+    #[Route('/signup', name: 'app_signup')]
+    public function signup(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $user = new User();
+
+        $form = $this->createForm(SignupFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user->setPassword($hashedPassword);
+            $user->setRoles(['ROLE_USER']);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('Page/Authentication/signup.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 }
