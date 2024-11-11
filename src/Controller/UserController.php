@@ -58,4 +58,15 @@ class UserController extends AbstractController
             'form' => $form
         ]);
     }
+
+    #[Route('/user/admin/remove/{id}', 'app_user_remove')]
+    public function userRemove(
+        User $user,
+    ): Response
+    {
+        $this->entityManager->remove($user);
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute('app_home');
+    }
 }
