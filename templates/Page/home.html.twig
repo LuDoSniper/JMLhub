@@ -4,39 +4,50 @@
     Bienvenue {{ username }}
 {% endblock title%}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
 {% block body %}
     {% include 'Widget/header.html.twig' %}
     <div class="content">
         <div class="top">
             <div class="input-search">
-                <input type="search">
+                <input placeholder="Films ..." type="search">
                 <i class="uil uil-search"></i>
             </div>
-            <div class="profile">
-                <a href="{{ path('app_profile_update') }}"><i class="uil uil-user"></i></a>
-            </div>
+            <a class="profile" href="{{ path('app_profile_update') }}"><i class="uil uil-user"></i></a>
         </div>
 
         <div class="main">
-            {% if lastMovie %}
-                <h2>{{ lastMovie.title }}</h2>
-                <img src="{{ asset('movies/' ~ lastMovie.filePath) }}" alt="{{ lastMovie.title }}">
-                <p>{{ lastMovie.description }}</p>
-            {% else %}
-                <p>Aucun film disponible.</p>
-            {% endif %}
+            <div class="lastmovie">
+                {% if lastMovie %}
+                    <h2>{{ lastMovie.title }}</h2>
+                    <p>{{ lastMovie.description }}</p>
+                    <div class="buttons">
+                        <a href="{{ path('app_movie_show', {id: lastMovie.id}) }}"><i class="uil uil-play"></i><span>Regarder maintenant</span></a>
+                        <a href="#"><i class="uil uil-download-alt"></i><span>Télécharge</span>r</a>
+                    </div>
+                {% else %}
+                    <p>Aucun film disponible.</p>
+                {% endif %}
+            </div>
         </div>
 
         <div class="categories">
             {% for category in categories %}
-                <h3>{{ category.name }}</h3>
-                <div class="movies">
-                    {% for movie in category.movies %}
-                        <div class="movie">
-                            <h4>{{ movie.title }}</h4>
-                            <img src="{{ asset('movies/' ~ movie.filePath) }}" alt="{{ movie.title }}">
-                        </div>
-                    {% endfor %}
+                <div class="category">
+                    <h3>{{ category.name }}</h3>
+                    <div class="movies">
+                        {% for movie in category.movies %}
+                            <div class="movie">
+                                <div class="movie-content">
+                                    <h4>{{ movie.title }}</h4>
+                                    <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

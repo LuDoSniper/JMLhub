@@ -38,6 +38,8 @@ body {
 }
 
 header {
+    position: sticky;
+    top: 5vh;
     width: 300px;
     height: 90vh;
     max-height: 780px;
