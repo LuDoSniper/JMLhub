@@ -6,8 +6,43 @@
 
 {% block body %}
     {% include 'Widget/header.html.twig' %}
-    <p>Vous etes sur la page d'acceuil</p>
-{% endblock body%}
+    <div class="content">
+        <div class="top">
+            <div class="input-search">
+                <input type="search">
+                <i class="uil uil-search"></i>
+            </div>
+            <div class="profile">
+                <a href="{{ path('app_profile_update') }}"><i class="uil uil-user"></i></a>
+            </div>
+        </div>
+
+        <div class="main">
+            {% if lastMovie %}
+                <h2>{{ lastMovie.title }}</h2>
+                <img src="{{ asset('movies/' ~ lastMovie.filePath) }}" alt="{{ lastMovie.title }}">
+                <p>{{ lastMovie.description }}</p>
+            {% else %}
+                <p>Aucun film disponible.</p>
+            {% endif %}
+        </div>
+
+        <div class="categories">
+            {% for category in categories %}
+                <h3>{{ category.name }}</h3>
+                <div class="movies">
+                    {% for movie in category.movies %}
+                        <div class="movie">
+                            <h4>{{ movie.title }}</h4>
+                            <img src="{{ asset('movies/' ~ movie.filePath) }}" alt="{{ movie.title }}">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
 
 
 

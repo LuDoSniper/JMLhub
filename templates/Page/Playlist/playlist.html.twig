@@ -22,7 +22,7 @@
                             <ul>
                                 {% for movie in playlist.movies %}
                                     <li>
-                                        {{ movie.title }}
+                                        <a class="movie-link" href="{{ path('app_movie_show', {id: movie.id}) }}">{{ movie.title }}</a>
                                         <a class="button delete movie" href="{{ path('app_playlist_remove_movie', { id: playlist.id, movieId: movie.id }) }}">-</a>
                                     </li>
                                 {% endfor %}
@@ -44,6 +44,15 @@
         .button.delete.movie {
             padding: 0 4px;
             border-radius: 4px;
+        }
+
+        .movie-link {
+            transition: .3s ease-in-out;
+        }
+
+        .movie-link:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
         }
     </style>
 {% endblock %}
