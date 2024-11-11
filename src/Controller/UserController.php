@@ -49,6 +49,13 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $isAdmin = $form->get('isAdmin')->getData();
+
+            if ($isAdmin) {
+                $user->addRole('ROLE_ADMIN');
+            } else {
+                $user->removeRole('ROLE_ADMIN');
+            }
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home');
