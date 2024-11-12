@@ -27,17 +27,55 @@
         <div class="main">
             <div class="lastmovie">
                 {% if lastMovie %}
-                    <h2>{{ lastMovie.title }}</h2>
-                    <p>{{ lastMovie.description }}</p>
-                    <div class="buttons">
-                        <a href="{{ path('app_movie_show', {id: lastMovie.id}) }}"><i class="uil uil-play"></i><span>Regarder maintenant</span></a>
-                        <a href="{{ asset("movies/" ~ lastMovie.filePath) }}" download>
-                            <i class="uil uil-download-alt"></i><span>Télécharger</span>
-                        </a>
+                    <div class="tag">
+                        <p>Dernière sortie</p>
+                        <span class="playlistsButton" id="playlistsButton-0">
+                            <span class="material-symbols-outlined">playlist_add</span>
+                        </span>
+                        <div class="playlists" id="playlists-0">
+                            <input type="hidden" id="movieId-0" value="{{ lastMovie.id }}">
+                            <input type="hidden" id="url-0" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
+                            <div class="playlistsTableTitle">Ajouter <strong>{{ lastMovie.title }}</strong> à une ou plusieurs playlists</div>
+                            <table>
+                                <tbody>
+                                {% for playlist in playlists %}
+                                    <tr>
+                                        <td>
+                                            <label for="{{ playlist.id }}">{{ playlist.name }}</label>
+                                        </td>
+                                        <td>
+                                            <label class="custom-checkbox">
+                                                {% set checked = "" %}
+                                                {% if lastMovie in playlist.movies %}
+                                                    {% set checked = "checked" %}
+                                                {% endif %}
+                                                <input type="checkbox" name="{{ playlist.id }}" id="{{ playlist.id }}" {{ checked }}>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="playlistsButtons">
+                                <button class="confirm">Confirmer</button>
+                                <button class="cancel">Annuler</button>
+                            </div>
+                        </div>
                     </div>
-                {% else %}
-                    <p>Aucun film disponible.</p>
-                {% endif %}
+                    <div class="information">
+                        <h2>{{ lastMovie.title }}</h2>
+                        <p>{{ lastMovie.description }}</p>
+                        <div class="buttons">
+                            <a href="{{ path('app_movie_show', {id: lastMovie.id}) }}"><i class="uil uil-play"></i><span>Regarder maintenant</span></a>
+                            <a href="{{ asset("movies/" ~ lastMovie.filePath) }}" download>
+                                <i class="uil uil-download-alt"></i><span>Télécharger</span>
+                            </a>
+                        </div>
+                        {% else %}
+                            <p>Aucun film disponible.</p>
+                        {% endif %}
+                    </div>
             </div>
         </div>
 
