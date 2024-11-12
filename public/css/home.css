@@ -22,6 +22,7 @@
     position: sticky;
     top: 5vh;
     background: var(--bg-color);
+    padding-bottom: 16px;
 }
 
 .top::after {
@@ -90,10 +91,32 @@
     margin-bottom: 5vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 12px;
     text-align: left;
+}
+
+.lastmovie .tag {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lastmovie .tag p {
+    background: rgba(148, 255, 214, 0.3);
+    padding: 10px;
+    border-radius: 50px;
+    font-size: 12px;
+    user-select: none;
+}
+
+.lastmovie .information {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .lastmovie h2 {
@@ -109,6 +132,7 @@
 
 .lastmovie .buttons {
     display: flex;
+    gap: 8px;
 }
 
 .lastmovie .buttons a {
@@ -129,7 +153,6 @@
 .lastmovie .buttons a:nth-child(2) {
     background: var(--bg-color);
     color: var(--text-color);
-    margin-left: 8px;
 }
 
 .lastmovie .buttons a:hover {
@@ -188,8 +211,18 @@
     color: var(--text-color);
 }
 
-.movie a, .playlistsButton {
+.movie a {
     padding: 4px 6px;
+    background: var(--text-color);
+    border-radius: 50px;
+    color: var(--bg-color);
+    display: flex;
+    align-items: center;
+    transition: .3s ease-in-out;
+}
+
+.playlistsButton {
+    padding: 4px 10px;
     background: var(--text-color);
     border-radius: 50px;
     color: var(--bg-color);
