@@ -6,6 +6,7 @@ use App\Entity\Authentication\User;
 use App\Entity\Movie\Playlist;
 use App\Form\Authentication\ProfileType;
 use App\Form\Authentication\UserType;
+use App\Form\Authentication\UserTypeWithoutPassword;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -69,7 +70,7 @@ class UserController extends AbstractController
         Request $request
     ): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserTypeWithoutPassword::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,7 +83,7 @@ class UserController extends AbstractController
             }
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_user_list');
         }
 
         return $this->render('Page/User/update.html.twig', [
