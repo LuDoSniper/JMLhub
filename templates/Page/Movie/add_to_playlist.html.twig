@@ -1,12 +1,70 @@
 {% extends 'Layout/base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
 {% block body %}
     {% include 'Widget/header.html.twig' %}
-    <h1>Ajouter un film à une playlist</h1>
 
-    {{ form_start(form) }}
-    {{ form_rest(form) }}
-    <button type="submit">Ajouter à la playlist</button>
-    {{ form_end(form) }}
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-plus"></i></div>
+            <h2>Ajouter à une watchlist</h2>
+            <p>Ajoute un film à une watchlist pour le retrouver plus facilement.</p>
+        </div>
 
+        <div class="form-control">
+            {{ form_start(form) }}
+
+            {% for checkbox in form.playlists %}
+                <div class="checkbox-group">
+                    {{ form_widget(checkbox) }}
+                    {{ form_label(checkbox) }}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Ajouter à la playlist</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <style>
+
+        .form-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center ;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--input-color);
+            cursor: pointer;
+            border: 2px solid var(--bg-color);
+            border-radius: 3px;
+            outline: none;
+            transition: 0.3s ease-in-out;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background: var(--primary-color);
+        }
+
+        .checkbox-group label {
+            font-size: 14px;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: block;
+        }
+
+    </style>
 {% endblock %}
