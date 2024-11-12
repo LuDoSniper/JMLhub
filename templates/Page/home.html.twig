@@ -49,6 +49,9 @@
                     <div class="movies">
                         {% for movie in category.movies %}
                             <div class="movie">
+                                <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
+                                    <span class="material-symbols-outlined">playlist_add</span>
+                                </span>
                                 <div class="movie-content">
                                     <h4>{{ movie.title }}</h4>
                                     <div class="buttons">
@@ -56,9 +59,6 @@
                                         <a href="{{ asset("movies/" ~ movie.filePath) }}" download>
                                             <i class="uil uil-download-alt"></i>
                                         </a>
-                                        <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
-                                            <span class="material-symbols-outlined">playlist_add</span>
-                                        </span>
                                         <div class="playlists" id="playlists-{{ categoriyIndex }}">
                                             <input type="hidden" id="movieId-{{ categoriyIndex }}" value="{{ movie.id }}">
                                             <input type="hidden" id="url-{{ categoriyIndex }}" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
