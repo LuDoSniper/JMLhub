@@ -15,15 +15,68 @@
 
         <div class="form-control">
             {{ form_start(form) }}
-            {{ form_rest(form) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            <div class="is_admin">
+                {{ form_row(form.isAdmin) }}
+                <label for="{{ form.isAdmin.vars.id }}" style="display: block;">Administrateur</label>
+            </div>
             <button>Créer</button>
             {{ form_end(form) }}
         </div>
     </div>
 
     <style>
+        .form-container {
+            margin: 100px auto;
+        }
+
+        .form-control input[type='checkbox'] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--input-color);
+            cursor: pointer;
+            border: 2px solid var(--bg-color);
+            border-radius: 3px;
+            margin-top:8px;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            transition: .3s ease-in-out;
+        }
+
+        .form-control input[type='checkbox']:checked {
+            background: var(--primary-color);
+        }
+
+        .form-control .remember_me label {
+            margin-left: 8px;
+            color: var(--primary-color);
+            font-size: 12px;
+        }
+
+        .is_admin {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .icon {
             transform: rotate(180deg);
+        }
+
+        .icon-input i {
+            position: absolute;
+            left: 8px;
+            top: calc(50% - 8px);
+            font-size: 20px;
+        }
+
+        .form-control label {
+            color: var(--primary-color);
+            font-size: 12px;
         }
     </style>
 {% endblock body %}
