@@ -68,7 +68,9 @@ class Playlist
     }
     public function removeMovie(Movie $movie): static
     {
-        $this->movies->removeElement($movie);
+        if ($this->movies->contains($movie)) {
+            $this->movies->removeElement($movie);
+        }
 
         return $this;
     }

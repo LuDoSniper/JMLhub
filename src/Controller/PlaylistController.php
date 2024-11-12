@@ -19,7 +19,7 @@ class PlaylistController extends AbstractController
     #[Route('/movie/playlists', 'app_playlists')]
     public function index(): Response
     {
-        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()]);
         return $this->render('Page/Playlist/playlist.html.twig', [
             'playlists' => $playlists,
         ]);
@@ -52,7 +52,7 @@ class PlaylistController extends AbstractController
         Playlist $playlist
     ): Response
     {
-        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()]);
         if (!in_array($playlist, $playlists) || $playlist->getNative()) {
             throw new AccessDeniedException();
         }
@@ -68,7 +68,7 @@ class PlaylistController extends AbstractController
         Request $request
     ): Response
     {
-        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()]);
         if (!in_array($playlist, $playlists) || $playlist->getNative()) {
             throw new AccessDeniedException();
         }

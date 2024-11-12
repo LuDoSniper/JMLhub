@@ -100,6 +100,37 @@ class MovieController extends AbstractController
         ]);
     }
 
+    #[Route('/movie/add-to-playlist/{movieId}/{playlistsIds}', 'app_movie_add-to-playlists')]
+    public function addToPlaylists(
+        int $movieId,
+        String $playlistsIds
+    ): Response
+    {
+        $movie = $this->entityManager->getRepository(Movie::class)->findOneBy(['id' => $movieId]);
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()]);
+        $playlistsIds = explode(",", $playlistsIds);
+
+        $playlistsChecked = [];
+        $playlistsUnchecked = $playlists;
+        foreach ($playlistsIds as $id) {
+            $playlist = $this->entityManager->getRepository(Playlist::class)->findOneBy(['id' => $id]);
+            $playlistsChecked[] = $playlist;
+            array_splice($playlistsUnchecked, array_search($playlist, $playlistsUnchecked), 1);
+        }
+
+        /** @var $playlist Playlist */
+        foreach ($playlistsChecked as $playlist) {
+            $playlist->addMovie($movie);
+        }
+        foreach ($playlistsUnchecked as $playlist) {
+            $playlist->removeMovie($movie);
+        }
+
+        $this->entityManager->flush();
+
+        return $this->redirectToRoute("app_home");
+    }
+
     #[Route('/movie/{id}/add-to-playlist', name: 'app_movie_add_to_playlist')]
     public function addToPlaylist(Request $request, Movie $movie): Response
     {
