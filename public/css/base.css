@@ -53,6 +53,7 @@ header {
     margin-left: 5vh;
     overflow: hidden;
     transition: .3s ease-in-out;
+    z-index: 100;
 }
 
 header .logo {
@@ -132,7 +133,6 @@ header nav ul li a span {
     header {
         position: fixed;
         width: 100%;
-        z-index: 10;
         top: 16px;
         left: -100%;
         margin: 0;
@@ -142,7 +142,7 @@ header nav ul li a span {
 
     #label-header {
         display: block;
-        z-index: 12;
+        z-index: 101;
     }
 
     #checkbox-header:checked~header {
