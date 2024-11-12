@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Authentication\User;
+use App\Entity\Movie\Playlist;
 use App\Form\Authentication\LoginFormType;
 use App\Form\Authentication\SignupFormType;
 use App\Form\Security\ResetPasswordFormType;
@@ -17,13 +18,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class LoginController extends AbstractController
 {
+    public function __construct(
+        public EntityManagerInterface $entityManager
+    ){}
+
     #[Route('/login', name: 'app_login')]
     public function login(
-        AuthenticationUtils $authenticationUtils
+        AuthenticationUtils $authenticationUtils,
     ): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -104,7 +110,6 @@ class LoginController extends AbstractController
         UserRepository $usersRepository,
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $entityManager
     ): Response
     {
         // On vérifie si le token est valide
@@ -130,7 +135,7 @@ class LoginController extends AbstractController
                     );
 
                     // Sauvegarde dans la base de données
-                    $entityManager->flush();
+                    $this->entityManager->flush();
 
                     // Ajout d'un message flash et redirection
                     $this->addFlash('success', 'Mot de passe changé avec succès');
@@ -152,7 +157,6 @@ class LoginController extends AbstractController
     public function signup(
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
-        EntityManagerInterface $entityManager
     ): Response {
         $user = new User();
 
@@ -164,8 +168,22 @@ class LoginController extends AbstractController
             $user->setPassword($hashedPassword);
             $user->setRoles(['ROLE_USER']);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->entityManager->persist($user);
+
+            // Création des playlists par défaut
+            $playlist = new Playlist();
+            $playlist->setUser($user);
+            $playlist->setName("Favoris");
+            $playlist->setNative(true);
+            $this->entityManager->persist($playlist);
+
+            $playlist = new Playlist();
+            $playlist->setUser($user);
+            $playlist->setNative(true);
+            $playlist->setName("À regarder plus tard");
+            $this->entityManager->persist($playlist);
+
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home');
         }
