@@ -12,9 +12,17 @@
         <div class="movie-details">
             <p class="movie-description">{{ movie.description }}</p>
             <div class="movie-info">
-                <span class="movie-rating">Note : {{ movie.rating }}</span>
+                <span class="movie-rating">
+                    {% if movie.rating is not null %}
+                        Note : {{ movie.rating }}% ({{ movie.ratingsNumber}} votes)
+                    {% else %}
+                        Note : Aucun vote
+                    {% endif %}
+                </span>
                 <span class="movie-release-date">Sortie : {{ movie.releaseDate | date('d/m/Y') }}</span>
             </div>
+            <a href="{{ path('app_movie_upvote', {'id': movie.id}) }}">Upvote</a>
+            <a href="{{ path('app_movie_downvote', {'id': movie.id}) }}">Downvote</a>
         </div>
         <div class="movie-player">
             <video class="video-player" controls>

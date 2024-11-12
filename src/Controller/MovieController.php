@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Authentication\User;
 use App\Entity\Movie\Movie;
 use App\Entity\Movie\Playlist;
+use App\Entity\Movie\Rating;
 use App\Form\Movie\AddToPlaylistType;
 use App\Form\Movie\MovieType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -181,10 +183,49 @@ class MovieController extends AbstractController
         ]);
     }
 
+    #[Route('/movie/{id}/upvote', 'app_movie_upvote')]
+    public function upvote(
+        Movie $movie
+    ): Response
+    {
+        $rating = $this->entityManager->getRepository(Rating::class)->findOneBy(['user' => $this->getUser(), 'movie' => $movie]);
+        if (!$rating) {
+            $rating = new Rating();
+            $rating
+                ->setRating(1)
+                ->setMovie($movie)
+                ->setUser($this->getUser())
+            ;
 
+            $this->entityManager->persist($rating);
+        } else {
+            $rating->setRating(1);
+        }
+        $this->entityManager->flush();
 
+        return $this->redirectToRoute('app_home');
+    }
 
+    #[Route('/movie/{id}/downvote', 'app_movie_downvote')]
+    public function downvote(
+        Movie $movie
+    ): Response
+    {
+        $rating = $this->entityManager->getRepository(Rating::class)->findOneBy(['user' => $this->getUser(), 'movie' => $movie]);
+        if (!$rating) {
+            $rating = new Rating();
+            $rating
+                ->setRating(0)
+                ->setMovie($movie)
+                ->setUser($this->getUser())
+            ;
 
+            $this->entityManager->persist($rating);
+        } else {
+            $rating->setRating(0);
+        }
+        $this->entityManager->flush();
 
-
+        return $this->redirectToRoute('app_home');
+    }
 }

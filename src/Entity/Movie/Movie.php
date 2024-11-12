@@ -2,9 +2,13 @@
 
 namespace App\Entity\Movie;
 
+use App\Entity\Authentication\User;
 use App\Repository\Movie\MovieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
 class Movie
@@ -23,7 +27,9 @@ class Movie
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $releaseDate = null;
 
-    #[ORM\Column]
+    #[ORM\OneToMany(targetEntity: Rating::class, mappedBy: 'movie')]
+    private Collection $ratings;
+
     private ?float $rating = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -31,6 +37,15 @@ class Movie
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'movies')]
     private ?Category $category = null;
+
+    // Construct
+
+    public function __construct(
+        public EntityManagerInterface $entityManager
+    )
+    {
+        $this->ratings = new ArrayCollection();
+    }
 
     // Getter - Setter
 
@@ -72,15 +87,45 @@ class Movie
         return $this;
     }
 
-    public function getRating(): ?float
+    public function getRatings(): Collection
     {
-        return $this->rating;
+        return $this->ratings;
     }
-    public function setRating(float $rating): static
+    public function addRating(Rating $rating): static
     {
-        $this->rating = $rating;
+        if (!$this->ratings->contains($rating)) {
+            $rating->setMovie($this);
+            $this->ratings->add($rating);
+        }
 
         return $this;
+    }
+    public function removeRating(Rating $rating): static
+    {
+        if ($this->ratings->removeElement($rating)) {
+            if ($rating->getMovie() === $this) {
+                $rating->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRating(): ?float
+    {
+        $sum = 0;
+        foreach ($this->getRatings() as $rating) {
+            /** @var $rating Rating */
+            $sum += $rating->getRating();
+        }
+        if (count($this->getRatings()) == 0) {
+            return null;
+        }
+        return ($sum / count($this->getRatings())) * 100;
+    }
+    public function getRatingsNumber(): ?int
+    {
+        return count($this->getRatings());
     }
 
     public function getFilePath(): ?string
