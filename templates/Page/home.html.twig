@@ -86,9 +86,10 @@
                         <div class="movies">
                             {% for movie in category.movies %}
                                 <div class="movie">
-                                <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
-                                    <span class="material-symbols-outlined">playlist_add</span>
-                                </span>
+                                    <a class="link" href="{{ path('app_movie_show', {id: movie.id}) }}"></a>
+                                    <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
+                                        <span class="material-symbols-outlined">playlist_add</span>
+                                    </span>
                                     <div class="movie-content">
                                         <h4>{{ movie.title }}</h4>
                                         <div class="buttons">
