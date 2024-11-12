@@ -22,10 +22,10 @@
                 <span class="movie-release-date">Sortie : {{ movie.releaseDate | date('d/m/Y') }}</span>
             </div>
             <a href="{{ path('app_movie_upvote', {'id': movie.id}) }}">
-                    <i class="uil uil-thumbs-up" style="font-size: 24px"></i>
+                <i class="uil uil-thumbs-up" style="font-size: 24px; {% if upvote %}color: var(--primary-color){% endif %}"></i>
             </a>
             <a href="{{ path('app_movie_downvote', {'id': movie.id}) }}">
-                    <i class="uil uil-thumbs-down" style="font-size: 24px"></i>
+                <i class="uil uil-thumbs-down" style="font-size: 24px; {% if downvote %}color: var(--primary-color){% endif %}"></i>
             </a>
         </div>
         <div class="movie-player">

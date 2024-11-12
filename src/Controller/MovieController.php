@@ -84,7 +84,7 @@ class MovieController extends AbstractController
             $file_path = uniqid() . '.' . $file->guessExtension();
             $file->move('movies/previews', $file_path);
             $movie->setPreviewPath($file_path);
-            
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_movies');
@@ -113,8 +113,21 @@ class MovieController extends AbstractController
         Movie $movie
     ): Response
     {
+        $rating = $this->entityManager->getRepository(Rating::class)->findOneBy(['user' => $this->getUser(), 'movie' => $movie]);
+        $upvote = false;
+        $downvote = false;
+        if ($rating) {
+            if ($rating->getRating() == 0) {
+                $downvote = true;
+            } else if ($rating->getRating() == 1) {
+                $upvote = true;
+            }
+        }
+
         return $this->render('Page/Movie/show.html.twig', [
             'movie' => $movie,
+            'downvote' => $downvote,
+            'upvote' => $upvote
         ]);
     }
 
@@ -219,7 +232,9 @@ class MovieController extends AbstractController
         }
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_movie_show', [
+            'id' => $movie->getId()
+        ]);
     }
 
     #[Route('/movie/{id}/downvote', 'app_movie_downvote')]
@@ -242,6 +257,8 @@ class MovieController extends AbstractController
         }
         $this->entityManager->flush();
 
-        return $this->redirectToRoute('app_home');
+        return $this->redirectToRoute('app_movie_show', [
+            'id' => $movie->getId()
+        ]);
     }
 }
