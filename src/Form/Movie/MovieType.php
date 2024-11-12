@@ -39,12 +39,6 @@ class MovieType extends AbstractType
                     'placeholder' => 'Date de sortie',
                 ],
             ])
-            ->add('rating', NumberType::class, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Entrez une note pour le film',
-                ],
-            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name'
@@ -63,7 +57,24 @@ class MovieType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid video file (MP4, WebM, Ogg, AVI, MKV).',
                     ])
-                ]
+                ],
+            ])
+            ->add('preview', FileType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '512M',
+                        'mimeTypes' => [
+                            'image/jpeg',     // JPG, JPEG
+                            'image/png',      // PNG
+                            'image/webp',     // WEBP
+                            'image/bmp',      // BMP
+                            'image/tiff',     // TIFF
+                            'image/svg+xml',  // SVG
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid video file (jpeg, png, webp, bmp, tiff, svg+xml).',
+                    ])
+                ],
             ])
         ;
     }

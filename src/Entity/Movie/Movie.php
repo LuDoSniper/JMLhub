@@ -35,17 +35,11 @@ class Movie
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $file_path = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $preview_path = null;
+
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'movies')]
     private ?Category $category = null;
-
-    // Construct
-
-    public function __construct(
-        public EntityManagerInterface $entityManager
-    )
-    {
-        $this->ratings = new ArrayCollection();
-    }
 
     // Getter - Setter
 
@@ -135,6 +129,15 @@ class Movie
     public function setFilePath(?string $file_path): void
     {
         $this->file_path = $file_path;
+    }
+
+    public function getPreviewPath(): ?string
+    {
+        return $this->preview_path;
+    }
+    public function setPreviewPath(?string $preview_path): void
+    {
+        $this->preview_path = $preview_path;
     }
 
     public function getCategory(): ?Category

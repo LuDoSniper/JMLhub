@@ -27,6 +27,7 @@
         <div class="main">
             <div class="lastmovie">
                 {% if lastMovie %}
+                    <img src="{{ asset("/movies/previews/" ~ lastMovie.previewPath) }}">
                     <div class="tag">
                         <p>Dernière sortie</p>
                         <span class="playlistsButton" id="playlistsButton-0">
