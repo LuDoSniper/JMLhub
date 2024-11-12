@@ -103,7 +103,7 @@ class MovieController extends AbstractController
     ): Response
     {
         return $this->render('Page/Movie/show.html.twig', [
-            'movie' => $movie
+            'movie' => $movie,
         ]);
     }
 

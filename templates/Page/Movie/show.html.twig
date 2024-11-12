@@ -21,8 +21,12 @@
                 </span>
                 <span class="movie-release-date">Sortie : {{ movie.releaseDate | date('d/m/Y') }}</span>
             </div>
-            <a href="{{ path('app_movie_upvote', {'id': movie.id}) }}">Upvote</a>
-            <a href="{{ path('app_movie_downvote', {'id': movie.id}) }}">Downvote</a>
+            <a href="{{ path('app_movie_upvote', {'id': movie.id}) }}">
+                    <i class="uil uil-thumbs-up" style="font-size: 24px"></i>
+            </a>
+            <a href="{{ path('app_movie_downvote', {'id': movie.id}) }}">
+                    <i class="uil uil-thumbs-down" style="font-size: 24px"></i>
+            </a>
         </div>
         <div class="movie-player">
             <video class="video-player" controls>
