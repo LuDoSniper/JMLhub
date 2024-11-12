@@ -21,7 +21,9 @@
                         {% include 'Widget/User/actions.html.twig' with {'user': user} %}
                     </tr>
                 {% else %}
-                    <span>Aucune donnée</span>
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

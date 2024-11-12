@@ -25,7 +25,9 @@
                         {% include 'Widget/Movie/actions.html.twig' with {'movie': movie} %}
                     </tr>
                 {% else %}
-                    <span>Aucunes données</span>
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

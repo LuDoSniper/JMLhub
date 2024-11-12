@@ -9,6 +9,7 @@ use App\Form\Authentication\SignupFormType;
 use App\Form\Security\ResetPasswordFormType;
 use App\Form\Security\ResetPasswordRequestFormType;
 use App\Repository\Authentication\UserRepository;
+use App\Security\AppAuthenticator;
 use App\Service\SendEmailService;
 use App\Service\TokenService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,6 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class LoginController extends AbstractController
 {
@@ -157,6 +159,8 @@ class LoginController extends AbstractController
     public function signup(
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
+        AppAuthenticator $appAuthenticator,
+        UserAuthenticatorInterface $userAuthenticator
     ): Response {
         $user = new User();
 
@@ -185,7 +189,7 @@ class LoginController extends AbstractController
 
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_home');
+            return $userAuthenticator->authenticateUser($user, $appAuthenticator, $request);
         }
 
         return $this->render('Page/Authentication/signup.html.twig', [

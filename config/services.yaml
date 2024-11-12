@@ -27,3 +27,6 @@ services:
     App\EventListener\UserListener:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
+
+    Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator:
+        alias: 'security.authenticator.form_login.main'

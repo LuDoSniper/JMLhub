@@ -19,7 +19,9 @@
                         {% include 'Widget/Category/actions.html.twig' with {'category': category} %}
                     </tr>
                 {% else %}
-                    <span>Aucune donnée</span>
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
                 {% endfor %}
                 </tbody>
             </table>

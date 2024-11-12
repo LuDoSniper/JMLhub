@@ -77,32 +77,31 @@
                         {% endif %}
                     </div>
             </div>
-        </div>
 
-        <div class="categories">
-            {% set categoriyIndex = 1 %} {# Commence par 1 car 0 est le lastmovie #}
-            {% for category in categories %}
-                <div class="category">
-                    <h3>{{ category.name }}</h3>
-                    <div class="movies">
-                        {% for movie in category.movies %}
-                            <div class="movie">
+            <div class="categories">
+                {% set categoriyIndex = 1 %} {# Commence par 1 car 0 est le lastmovie #}
+                {% for category in categories %}
+                    <div class="category">
+                        <h3>{{ category.name }}</h3>
+                        <div class="movies">
+                            {% for movie in category.movies %}
+                                <div class="movie">
                                 <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
                                     <span class="material-symbols-outlined">playlist_add</span>
                                 </span>
-                                <div class="movie-content">
-                                    <h4>{{ movie.title }}</h4>
-                                    <div class="buttons">
-                                        <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
-                                        <a href="{{ asset("movies/" ~ movie.filePath) }}" download>
-                                            <i class="uil uil-download-alt"></i>
-                                        </a>
-                                        <div class="playlists" id="playlists-{{ categoriyIndex }}">
-                                            <input type="hidden" id="movieId-{{ categoriyIndex }}" value="{{ movie.id }}">
-                                            <input type="hidden" id="url-{{ categoriyIndex }}" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
-                                            <div class="playlistsTableTitle">Ajouter <strong>{{ movie.title }}</strong> à une ou plusieurs playlists</div>
-                                            <table>
-                                                <tbody>
+                                    <div class="movie-content">
+                                        <h4>{{ movie.title }}</h4>
+                                        <div class="buttons">
+                                            <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
+                                            <a href="{{ asset("movies/" ~ movie.filePath) }}" download>
+                                                <i class="uil uil-download-alt"></i>
+                                            </a>
+                                            <div class="playlists" id="playlists-{{ categoriyIndex }}">
+                                                <input type="hidden" id="movieId-{{ categoriyIndex }}" value="{{ movie.id }}">
+                                                <input type="hidden" id="url-{{ categoriyIndex }}" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
+                                                <div class="playlistsTableTitle">Ajouter <strong>{{ movie.title }}</strong> à une ou plusieurs playlists</div>
+                                                <table>
+                                                    <tbody>
                                                     {% for playlist in playlists %}
                                                         <tr>
                                                             <td>
@@ -120,22 +119,26 @@
                                                             </td>
                                                         </tr>
                                                     {% endfor %}
-                                                </tbody>
-                                            </table>
-                                            <div class="playlistsButtons">
-                                                <button class="confirm">Confirmer</button>
-                                                <button class="cancel">Annuler</button>
+                                                    </tbody>
+                                                </table>
+                                                <div class="playlistsButtons">
+                                                    <button class="confirm">Confirmer</button>
+                                                    <button class="cancel">Annuler</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
-                {% set categoriyIndex = categoriyIndex + 1 %}
-            {% endfor %}
+                    {% set categoriyIndex = categoriyIndex + 1 %}
+                {% endfor %}
+            </div>
+
         </div>
+
+
     </div>
 {% endblock %}
 
