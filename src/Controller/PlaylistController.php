@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class PlaylistController extends AbstractController
 {
@@ -18,7 +19,7 @@ class PlaylistController extends AbstractController
     #[Route('/movie/playlists', 'app_playlists')]
     public function index(): Response
     {
-        $playlists = $this->entityManager->getRepository(Playlist::class)->findAll();
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
         return $this->render('Page/Playlist/playlist.html.twig', [
             'playlists' => $playlists,
         ]);
@@ -47,20 +48,31 @@ class PlaylistController extends AbstractController
 
 
     #[Route('/movie/playlist/remove/{id}', 'app_playlist_remove')]
-    public function remove(int $id): Response
+    public function remove(
+        Playlist $playlist
+    ): Response
     {
-        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
-        if ($playlist) {
-            $this->entityManager->remove($playlist);
-            $this->entityManager->flush();
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
+        if (!in_array($playlist, $playlists) || $playlist->getNative()) {
+            throw new AccessDeniedException();
         }
+
+        $this->entityManager->remove($playlist);
+        $this->entityManager->flush();
         return $this->redirectToRoute('app_playlists');
     }
 
     #[Route('/movie/playlist/update/{id}', 'app_playlist_update')]
-    public function update(int $id, Request $request): Response
+    public function update(
+        Playlist $playlist,
+        Request $request
+    ): Response
     {
-        $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $this->getUser()->getId()]);
+        if (!in_array($playlist, $playlists) || $playlist->getNative()) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(PlaylistType::class, $playlist);
         $form->handleRequest($request);
 
@@ -76,7 +88,10 @@ class PlaylistController extends AbstractController
     }
 
     #[Route('/movie/playlist/{id}/add-movie/{movieId}', 'app_playlist_add_movie')]
-    public function addMovie(int $id, int $movieId): Response
+    public function addMovie(
+        int $id,
+        int $movieId
+    ): Response
     {
         $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
         $movie = $this->entityManager->getRepository(Movie::class)->find($movieId);
@@ -90,7 +105,10 @@ class PlaylistController extends AbstractController
     }
 
     #[Route('/movie/playlist/{id}/remove-movie/{movieId}', 'app_playlist_remove_movie')]
-    public function removeMovie(int $id, int $movieId): Response
+    public function removeMovie(
+        int $id,
+        int $movieId
+    ): Response
     {
         $playlist = $this->entityManager->getRepository(Playlist::class)->find($id);
         $movie = $this->entityManager->getRepository(Movie::class)->find($movieId);

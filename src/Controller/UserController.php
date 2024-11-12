@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Authentication\User;
+use App\Entity\Movie\Playlist;
 use App\Form\Authentication\ProfileType;
 use App\Form\Authentication\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
@@ -17,9 +19,10 @@ class UserController extends AbstractController
         public EntityManagerInterface $entityManager
     ){}
 
-    #[Route('/user/create', 'app_user_create')]
+    #[Route('/user/admin/create', 'app_user_create')]
     public function userCreate(
-        Request $request
+        Request $request,
+        UserPasswordHasherInterface $hasher
     ): Response
     {
         $user = new User();
@@ -27,7 +30,26 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Création du user
+            $user->setPassword($hasher->hashPassword($user, $form->get('plainPassword')->getData()));
+            if ($form->get('isAdmin')->getData()) {
+                $user->addRole('ROLE_ADMIN');
+            }
             $this->entityManager->persist($user);
+
+            // Création des playlists par défaut
+            $playlist = new Playlist();
+            $playlist->setUser($user);
+            $playlist->setName("Favoris");
+            $playlist->setNative(true);
+            $this->entityManager->persist($playlist);
+
+            $playlist = new Playlist();
+            $playlist->setUser($user);
+            $playlist->setNative(true);
+            $playlist->setName("À regarder plus tard");
+            $this->entityManager->persist($playlist);
+
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_home');
@@ -39,7 +61,7 @@ class UserController extends AbstractController
     }
 
 
-    #[Route('/user/update/{id}', 'app_user_update')]
+    #[Route('/user/admin/update/{id}', 'app_user_update')]
     public function userUpdate(
         User $user,
         Request $request

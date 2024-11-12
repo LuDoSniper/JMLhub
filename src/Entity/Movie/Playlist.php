@@ -26,6 +26,11 @@ class Playlist
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column(nullable: false)]
+    private ?bool $native = false;
+
+    // Construct
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();
@@ -42,7 +47,6 @@ class Playlist
     {
         return $this->name;
     }
-
     public function setName(string $name): static
     {
         $this->name = $name;
@@ -54,7 +58,6 @@ class Playlist
     {
         return $this->movies;
     }
-
     public function addMovie(Movie $movie): static
     {
         if (!$this->movies->contains($movie)) {
@@ -63,7 +66,6 @@ class Playlist
 
         return $this;
     }
-
     public function removeMovie(Movie $movie): static
     {
         $this->movies->removeElement($movie);
@@ -75,11 +77,19 @@ class Playlist
     {
         return $this->user;
     }
-
     public function setUser(?User $user): static
     {
         $this->user = $user;
 
         return $this;
+    }
+
+    public function getNative(): ?bool
+    {
+        return $this->native;
+    }
+    public function setNative(?bool $native): void
+    {
+        $this->native = $native;
     }
 }
