@@ -1,0 +1,33 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+    <div class="manage">
+        <a class="button" href="{{ path('app_user_create') }}">Créer</a>
+        <div class="table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Nom de l'utilisateur</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        {% include 'Widget/User/actions.html.twig' with {'user': user} %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

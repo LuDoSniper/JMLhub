@@ -1,0 +1,38 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/movie.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+
+    <div class="movie-view">
+        <h1 class="movie-title">{{ movie.title }}</h1>
+        <div class="movie-details">
+            <p class="movie-description">{{ movie.description }}</p>
+            <div class="movie-info">
+                <span class="movie-rating">
+                    {% if movie.rating is not null %}
+                        Note : {{ movie.rating }}% ({{ movie.ratingsNumber}} votes)
+                    {% else %}
+                        Note : Aucun vote
+                    {% endif %}
+                </span>
+                <span class="movie-release-date">Sortie : {{ movie.releaseDate | date('d/m/Y') }}</span>
+            </div>
+            <a href="{{ path('app_movie_upvote', {'id': movie.id}) }}">
+                <i class="uil uil-thumbs-up" style="font-size: 24px; {% if upvote %}color: var(--primary-color){% endif %}"></i>
+            </a>
+            <a href="{{ path('app_movie_downvote', {'id': movie.id}) }}">
+                <i class="uil uil-thumbs-down" style="font-size: 24px; {% if downvote %}color: var(--primary-color){% endif %}"></i>
+            </a>
+        </div>
+        <div class="movie-player">
+            <video class="video-player" controls>
+                <source src="{{ asset("movies/" ~ movie.filePath) }}" type="video/mp4">
+                Votre navigateur ne supporte pas la lecture de cette vidéo.
+            </video>
+        </div>
+    </div>
+{% endblock %}

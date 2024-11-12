@@ -1,0 +1,105 @@
+
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}JMLHub • Inscription{% endblock title %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-sign-in-alt"></i></div>
+            <h2>Inscrivez-vous</h2>
+            <p>Inscris-toi, accède à ton espace et commence à explorer ton monde créatif.</p>
+        </div>
+
+        <div class="form-control">
+
+            {{ form_start(form) }}
+            <div class="icon-input">
+                <i class="uil uil-user"></i>
+                {{ form_row(form._username) }}
+            </div>
+            <div class="icon-input">
+                <i class="uil uil-envelope"></i>
+                {{ form_row(form._email) }}
+            </div>
+            <div class="icon-input">
+                <i class="uil uil-lock"></i>
+                {{ form_row(form._password) }}
+            </div>
+            <div class="password">
+                <a href="{{ path('app_login') }}">Déjà un compte ?</a>
+            </div>
+
+            <button type="submit">Créer</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <style>
+        /*FRT 02 : Style pour le remember me*/
+        .form-container {
+            margin: 100px auto;
+        }
+
+        .form-control input:not([type="file"]):not([type="checkbox"]) {
+            padding-left: 34px;
+        }
+
+        .form-control  .remember_me {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+
+        .form-control input[type='checkbox'] {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--input-color);
+            cursor: pointer;
+            border: 2px solid var(--bg-color);
+            border-radius: 3px;
+            margin-top:5px;
+            outline: none;
+            box-shadow: none;
+            position: relative;
+            transition: .3s ease-in-out;
+        }
+
+        .form-control input[type='checkbox']:checked {
+            background: var(--primary-color);
+        }
+
+        .form-control .remember_me label {
+            margin-left: 8px;
+            color: var(--primary-color);
+            font-size: 12px;
+        }
+
+        .icon {
+            transform: rotate(180deg);
+        }
+
+        .icon-input {
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .icon-input i {
+            position: absolute;
+            left: 8px;
+            top: calc(50% - 8px);
+            font-size: 20px;
+        }
+
+    </style>
+
+{% endblock body %}

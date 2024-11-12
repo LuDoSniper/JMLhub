@@ -1,0 +1,43 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+    <div class="manage">
+        <a class="button" href="{{ path('app_movie_create') }}">Créer</a>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Date de parution</th>
+                        <th>Note</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for movie in movies %}
+                    <tr>
+                        <td><a href="{{ path('app_movie_show', {id: movie.id}) }}">{{ movie.title }}</a></td>
+                        <td>{{ movie.description }}</td>
+                        <td>{{ movie.releaseDate | date }}</td>
+                        <td>
+                            {% if movie.rating is not null %}
+                                {{ movie.rating }}% ({{ movie.ratingsNumber}} votes)
+                            {% else %}
+                                Aucun vote
+                            {% endif %}
+                        </td>
+                        {% include 'Widget/Movie/actions.html.twig' with {'movie': movie} %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="no-data">Aucune playlist disponible</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
+

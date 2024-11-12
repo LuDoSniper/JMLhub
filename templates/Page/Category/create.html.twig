@@ -1,0 +1,23 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+    <div class="form-container">
+        <div class="info">
+            <div class="icon"><i class="uil uil-sign-in-alt"></i></div>
+            <h2>Catégorie</h2>
+            <p>Crée ta catégorie, définis son genre et enrichis ta collection de films dès maintenant !</p>
+        </div>
+
+        <div class="form-control">
+            {{ form_start(form) }}
+            {{ form_rest(form) }}
+            <button>Créer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock body %}

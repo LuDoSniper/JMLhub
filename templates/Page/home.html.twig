@@ -1,0 +1,154 @@
+{% extends 'Layout/base.html.twig' %}
+
+{% block title %}
+    JMLHub • {{ username }}
+{% endblock title%}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/home.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    {% include 'Widget/header.html.twig' %}
+    <div id="overlay"></div>
+    <div class="content">
+        <div class="top">
+            <div class="input-search">
+                <input placeholder="Films ..." type="search">
+                <i class="uil uil-search"></i>
+            </div>
+            <a class="profile" href="{{ path('app_profile_update') }}"><i class="uil uil-user"></i></a>
+        </div>
+
+        <div class="main">
+            <div class="lastmovie"
+                    {% if lastMovie and lastMovie.previewPath %}
+                style="background-image: url('{{ asset('movies/previews/' ~ lastMovie.previewPath) }}');"
+                    {% endif %}>
+                {% if lastMovie %}
+                    <div class="tag">
+                        <p>Dernière sortie</p>
+                        <span class="playlistsButton" id="playlistsButton-0">
+                            <span class="material-symbols-outlined">playlist_add</span>
+                        </span>
+                        <div class="playlists" id="playlists-0">
+                            <input type="hidden" id="movieId-0" value="{{ lastMovie.id }}">
+                            <input type="hidden" id="url-0" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
+                            <div class="playlistsTableTitle">Ajouter <strong>{{ lastMovie.title }}</strong> à une ou plusieurs watchlists</div>
+                            <table>
+                                <tbody>
+                                {% for playlist in playlists %}
+                                    <tr>
+                                        <td>
+                                            <label for="{{ playlist.id }}">{{ playlist.name }}</label>
+                                        </td>
+                                        <td>
+                                            <label class="custom-checkbox">
+                                                {% set checked = "" %}
+                                                {% if lastMovie in playlist.movies %}
+                                                    {% set checked = "checked" %}
+                                                {% endif %}
+                                                <input type="checkbox" name="{{ playlist.id }}" id="{{ playlist.id }}" {{ checked }}>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <div class="playlistsButtons">
+                                <button class="confirm">Confirmer</button>
+                                <button class="cancel">Annuler</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="information">
+                        <h2>{{ lastMovie.title }}</h2>
+                        <p>{{ lastMovie.description }}</p>
+                        <div class="buttons">
+                            <a href="{{ path('app_movie_show', {id: lastMovie.id}) }}"><i class="uil uil-play"></i><span>Regarder maintenant</span></a>
+                            <a href="{{ asset("movies/" ~ lastMovie.filePath) }}" download>
+                                <i class="uil uil-download-alt"></i><span>Télécharger</span>
+                            </a>
+                        </div>
+                        {% else %}
+                            <p>Aucun film disponible.</p>
+                        {% endif %}
+                    </div>
+            </div>
+
+            <div class="categories">
+                {% set categoriyIndex = 1 %} {# Commence par 1 car 0 est le lastmovie #}
+                {% for category in categories %}
+                    <div class="category">
+                        <h3>{{ category.name }}</h3>
+                        <div class="movies">
+                            {% for movie in category.movies %}
+                                <div class="movie"
+                                        {% if movie.previewPath %}
+                                    style="background-image: url('{{ asset('movies/previews/' ~ movie.previewPath) }}');"
+                                        {% endif %}>
+                                    <a class="link" href="{{ path('app_movie_show', {id: movie.id}) }}"></a>
+                                    <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
+                                        <span class="material-symbols-outlined">playlist_add</span>
+                                    </span>
+                                    <div class="movie-content">
+                                        <h4>{{ movie.title }}</h4>
+                                        <div class="buttons">
+                                            <a href="{{ path('app_movie_show', {id: movie.id}) }}"><i class="uil uil-play"></i></a>
+                                            <a href="{{ asset("movies/" ~ movie.filePath) }}" download>
+                                                <i class="uil uil-download-alt"></i>
+                                            </a>
+                                        </div>
+                                        <div class="playlists" id="playlists-{{ categoriyIndex }}">
+                                            <input type="hidden" id="movieId-{{ categoriyIndex }}" value="{{ movie.id }}">
+                                            <input type="hidden" id="url-{{ categoriyIndex }}" value="{{ path('app_movie_add-to-playlists', {'movieId': 0, 'playlistsIds': '0'}) }}">
+                                            <div class="playlistsTableTitle">Ajouter <strong>{{ movie.title }}</strong> à une ou plusieurs watchlists</div>
+                                            <table>
+                                                <tbody>
+                                                {% for playlist in playlists %}
+                                                    <tr>
+                                                        <td>
+                                                            <label for="{{ playlist.id }}">{{ playlist.name }}</label>
+                                                        </td>
+                                                        <td>
+                                                            <label class="custom-checkbox">
+                                                                {% set checked = "" %}
+                                                                {% if movie in playlist.movies %}
+                                                                    {% set checked = "checked" %}
+                                                                {% endif %}
+                                                                <input type="checkbox" name="{{ playlist.id }}" id="{{ playlist.id }}" {{ checked }}>
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                            <div class="playlistsButtons">
+                                                <button class="confirm">Confirmer</button>
+                                                <button class="cancel">Annuler</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% set categoriyIndex = categoriyIndex + 1 %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
+
+
+
+
