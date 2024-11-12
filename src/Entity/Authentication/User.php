@@ -2,6 +2,7 @@
 
 namespace App\Entity\Authentication;
 
+use App\Entity\Movie\Rating;
 use App\Repository\Authentication\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,13 +42,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Playlist::class)]
     private Collection $playlists;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
+    #[ORM\OneToMany(targetEntity: Rating::class, mappedBy: 'user')]
+    private Collection $ratings;
+
+    // Construct
+
     public function __construct()
     {
         $this->playlists = new ArrayCollection();
+        $this->ratings = new ArrayCollection();
     }
-
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private ?string $resetToken = null;
 
     // Getter - Setter
 
@@ -157,6 +164,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // Set the owning side to null (unless already changed)
             if ($playlist->getUser() === $this) {
                 $playlist->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+    public function addRating(Rating $rating): static
+    {
+        if (!$this->ratings->contains($rating)) {
+            $rating->setUser($this);
+            $this->ratings->add($rating);
+        }
+
+        return $this;
+    }
+    public function removeRating(Rating $rating): static
+    {
+        if ($this->ratings->removeElement($rating)) {
+            if ($rating->getUser() === $this) {
+                $rating->setUser(null);
             }
         }
 
