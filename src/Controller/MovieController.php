@@ -74,6 +74,17 @@ class MovieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            /** @var UploadedFile $file */
+            $file = $form->get('file')->getData();
+            $file_path = uniqid() . '.' . $file->guessExtension();
+            $file->move('movies', $file_path);
+            $movie->setFilePath($file_path);
+
+            $file = $form->get('preview')->getData();
+            $file_path = uniqid() . '.' . $file->guessExtension();
+            $file->move('movies/previews', $file_path);
+            $movie->setPreviewPath($file_path);
+            
             $this->entityManager->flush();
 
             return $this->redirectToRoute('app_movies');
