@@ -8,10 +8,12 @@ use App\Form\Authentication\ProfileType;
 use App\Form\Authentication\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class UserController extends AbstractController
 {
@@ -93,9 +95,17 @@ class UserController extends AbstractController
         User $user,
     ): Response
     {
+        $playlists = $this->entityManager->getRepository(Playlist::class)->findBy(['user' => $user]);
+        foreach ($playlists as $playlist) {
+            $this->entityManager->remove($playlist);
+        }
+
+        if ($user === $this->getUser()) {
+            throw new AccessDeniedException();
+        }
+
         $this->entityManager->remove($user);
         $this->entityManager->flush();
-
         return $this->redirectToRoute('app_user_list');
     }
 
