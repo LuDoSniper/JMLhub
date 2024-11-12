@@ -28,7 +28,9 @@
                                 {% endfor %}
                             </ul>
                         </td>
-                        {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
+                        {% if not playlist.native %}
+                            {% include 'Widget/Playlist/actions.html.twig' with {'playlist': playlist} %}
+                        {% endif %}
                     </tr>
                 {% else %}
                     <tr>
