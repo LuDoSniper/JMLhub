@@ -15,8 +15,13 @@
 
         <div class="form-control">
             {{ form_start(form) }}
-            {{ form_rest(form) }}
-            <label for="{{ form.isAdmin.vars.id }}" style="display: block;">Administrateur</label>
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.plainPassword) }}
+            <div class="is_admin">
+                {{ form_row(form.isAdmin) }}
+                <label for="{{ form.isAdmin.vars.id }}" style="display: block;">Administrateur</label>
+            </div>
             <button>Mettre à jour</button>
             {{ form_end(form) }}
         </div>
@@ -27,10 +32,6 @@
             margin: 100px auto;
         }
 
-        .form-control input:not([type="file"]):not([type="checkbox"]) {
-            padding-left: 34px;
-        }
-
         .form-control input[type='checkbox'] {
             appearance: none;
             width: 16px;
@@ -39,7 +40,7 @@
             cursor: pointer;
             border: 2px solid var(--bg-color);
             border-radius: 3px;
-            margin-top:5px;
+            margin-top:8px;
             outline: none;
             box-shadow: none;
             position: relative;
@@ -54,6 +55,12 @@
             margin-left: 8px;
             color: var(--primary-color);
             font-size: 12px;
+        }
+
+        .is_admin {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .icon {
