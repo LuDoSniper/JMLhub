@@ -27,7 +27,9 @@
         <div class="main">
             <div class="lastmovie">
                 {% if lastMovie %}
-                    <img src="{{ asset("/movies/previews/" ~ lastMovie.previewPath) }}">
+                    {% if lastMovie.previewPath %}
+                        <img src="{{ asset("/movies/previews/" ~ lastMovie.previewPath) }}">
+                    {% endif %}
                     <div class="tag">
                         <p>Dernière sortie</p>
                         <span class="playlistsButton" id="playlistsButton-0">
@@ -87,6 +89,9 @@
                         <div class="movies">
                             {% for movie in category.movies %}
                                 <div class="movie">
+                                    {% if movie.previewPath %}
+                                        <img src="{{ asset("/movies/previews/" ~ movie.previewPath) }}">
+                                    {% endif %}
                                     <a class="link" href="{{ path('app_movie_show', {id: movie.id}) }}"></a>
                                     <span class="playlistsButton" id="playlistsButton-{{ categoriyIndex }}">
                                         <span class="material-symbols-outlined">playlist_add</span>
